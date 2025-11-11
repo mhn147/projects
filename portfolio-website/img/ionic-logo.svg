@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <clipPath id="clip-ionic-logo">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="ionic-logo" clip-path="url(#clip-ionic-logo)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="240" height="240" rx="9" fill="none"/>
+    <g id="Layer_1_1_" transform="translate(20 20)">
+      <g id="Groupe_8" data-name="Groupe 8">
+        <path id="Tracé_56" data-name="Tracé 56" d="M188.533,139.3a49.233,49.233,0,1,0,49.233,49.233A49.288,49.288,0,0,0,188.533,139.3Z" transform="translate(-88.533 -88.533)"/>
+        <g id="Groupe_7" data-name="Groupe 7" transform="translate(140.22 18.267)">
+          <circle id="Ellipse_1" data-name="Ellipse 1" cx="22.444" cy="22.444" r="22.444"/>
+        </g>
+        <path id="Tracé_57" data-name="Tracé 57" d="M191.016,58.555l-.859-1.914L188.75,58.2a31.336,31.336,0,0,1-12.539,8.633l-1.328.508.547,1.289A81.729,81.729,0,1,1,135,26.172l1.289.625.547-1.289A31.453,31.453,0,0,1,146.055,13.4L147.7,12.07l-1.875-.977a100.007,100.007,0,1,0,45.2,47.461Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

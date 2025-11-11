@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <clipPath id="clip-html">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="html" clip-path="url(#clip-html)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="240" height="240" rx="9" fill="none"/>
+    <g id="html-5" transform="translate(19.74 -50.752)">
+      <path id="Tracé_37" data-name="Tracé 37" d="M200.075,70.766,181.888,250.721l-81.75,20.018-81.525-19.99L.445,70.766h199.63Z" fill="#e44d26"/>
+      <path id="Tracé_38" data-name="Tracé 38" d="M128,262.013l66.058-16.176L209.6,92.057H128Z" transform="translate(-27.74 -6.575)" fill="#f16529"/>
+      <path id="Tracé_39" data-name="Tracé 39" d="M75.229,146.069h35.354V124H47.917l.6,5.922,6.143,60.831h55.926V168.673H77.514Zm5.633,55.716H55.774l3.5,34.66L110.469,249l.115-.028V226l-.11.026L82.642,219.39l-1.779-17.6Z" transform="translate(-10.324 -16.438)" fill="#ebebeb"/>
+      <path id="Tracé_41" data-name="Tracé 41" d="M127.89,190.748h30.774l-2.9,28.629-27.874,6.645v22.965l51.234-12.541.376-3.73,5.874-58.114.61-5.928H127.89Zm0-44.732v.054h60.366l.5-4.961,1.139-11.191.6-5.922h-62.6v22.021Z" transform="translate(-27.716 -16.438)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

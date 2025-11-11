@@ -1,0 +1,121 @@
+/* Darker color: #181818 */
+/* Less Dark color: #202020 */
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  background-color: #181818;
+}
+main {
+  margin-top: 3.5rem !important;
+  margin-bottom: 3rem !important;
+}
+
+/* Common */
+.round-border {
+  border-radius: 8px;
+}
+.less-dark-background-color {
+  background-color: #202020;
+}
+.darker-background-color {
+  background-color: #181818;
+}
+.accent-color {
+  color: #24adf2;
+}
+.translucent {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/* End Common */
+
+/* Navbar */
+.brand-img {
+  height: 45px;
+  width: 45px;
+}
+@media (min-width: 40rem) {
+  .brand-img {
+    height: 60px;
+    width: 60px;
+  }
+}
+.navbar-items-container {
+  justify-content: flex-end;
+  width: 100%;
+}
+.navbar-link-logo-img {
+  height: 2rem;
+  width: 2rem;
+}
+.nav-link, .cta-btn {
+  font-size: 1.4rem;
+  display: inline-block !important;
+}
+.navbar-items-container {
+  margin: 3rem 0 !important;
+}
+@media (min-width: 40rem) {
+  .navbar-items-container {
+    margin: 0.5rem 0 !important;
+  }
+}
+@media (min-width: 40rem) {
+  .only-on-collapse {
+    display: none;
+  }
+}
+.only-on-collapse {
+  margin-bottom: 1rem;
+}
+.nav-icon {
+  height: 35px;
+  width: 35px;
+}
+/* End Navbar */
+
+.personal-pic-img {
+  /* height: 150px; */
+  width: 150px;
+  border-radius: 50%;
+}
+@media (max-width: 40rem) {
+  .personal-pic-img {
+    margin-top: 1rem;
+  }
+}
+
+.projects {
+  padding-right: 1.8rem;
+  padding-left: 1.8rem;
+}
+@media (min-width: 40rem) {
+  .projects {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+  }
+}
+
+.skill-container {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+
+.skill-container.front-end-bg {
+  background-image: url('../img/Skills-FE-bg.svg');
+}
+
+.skill-container.back-end-bg {
+  background-image: url('../img/Skills-BE-bg.svg');
+}
+
+.skill-container.tools-bg {
+  background-image: url('../img/Skills-tools-bg.svg');
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+}

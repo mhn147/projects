@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <clipPath id="clip-vs-code-logo">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="vs-code-logo" clip-path="url(#clip-vs-code-logo)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="240" height="240" rx="9" transform="translate(26 67)" fill="none"/>
+    <g id="visual-studio-code-1" transform="translate(16.862 6.699)">
+      <path id="Tracé_3528" data-name="Tracé 3528" d="M4.636,266.159s-4.891-3.526.978-8.234L19.289,245.7s3.913-4.117,8.05-.53l126.2,95.545v45.816s-.061,7.194-9.294,6.4Z" transform="translate(0 -182.915)" fill="#2489ca"/>
+      <path id="Tracé_3529" data-name="Tracé 3529" d="M38.824,498.8,6.3,528.372s-3.342,2.487,0,6.93l15.1,13.737s3.587,3.852,8.886-.53L64.769,522.36Z" transform="translate(-1.661 -386.025)" fill="#1070b3"/>
+      <path id="Tracé_3530" data-name="Tracé 3530" d="M330.162,119.558l59.655-45.551-.387-45.571s-2.548-9.946-11.046-4.769L299,95.917Z" transform="translate(-235.892 -6.538)" fill="#0877b9"/>
+      <path id="Tracé_3531" data-name="Tracé 3531" d="M690.253,210.073a8.2,8.2,0,0,0,7.663,2.385L744.4,189.55c5.951-4.056,5.116-9.09,5.116-9.09V43.664c0-6.012-6.155-8.091-6.155-8.091L703.072,16.15c-8.8-5.442-14.572.978-14.572.978s7.419-5.34,11.046,4.769V202.777a8.221,8.221,0,0,1-.795,3.567c-1.06,2.14-3.363,4.137-8.886,3.3Z" transform="translate(-546.009 0)" fill="#3c99d4"/>
+    </g>
+  </g>
+</svg>

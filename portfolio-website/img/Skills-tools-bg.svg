@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.007" y1="0.342" x2="0.851" y2="0.865" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fda714"/>
+      <stop offset="0.475" stop-color="#fead1d"/>
+      <stop offset="1" stop-color="#fdd35a"/>
+    </linearGradient>
+    <clipPath id="clip-Skills-tools-bg">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="Skills-tools-bg" clip-path="url(#clip-Skills-tools-bg)">
+    <rect width="1920" height="1080" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

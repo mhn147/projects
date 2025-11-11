@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="750" height="750" viewBox="0 0 750 750">
+  <defs>
+    <clipPath id="clip-logo">
+      <rect width="750" height="750"/>
+    </clipPath>
+  </defs>
+  <g id="logo" clip-path="url(#clip-logo)">
+    <circle id="Ellipse_2" data-name="Ellipse 2" cx="292" cy="292" r="292" transform="translate(83 83)" fill="#fff"/>
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(113 117)" fill="#0d6efd" stroke="#000" stroke-width="36">
+      <circle cx="262" cy="262" r="262" stroke="none"/>
+      <circle cx="262" cy="262" r="244" fill="none"/>
+    </g>
+    <text id="N" transform="translate(232 151)" fill="#fff" font-size="371" font-family="Tahoma-Bold, Tahoma" font-weight="700"><tspan x="0" y="371">N</tspan></text>
+  </g>
+</svg>

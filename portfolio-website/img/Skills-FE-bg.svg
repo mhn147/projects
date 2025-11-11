@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.007" y1="0.342" x2="0.725" y2="0.792" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4b52fb"/>
+      <stop offset="0.267" stop-color="#4076fa"/>
+      <stop offset="0.451" stop-color="#3697f8"/>
+      <stop offset="1" stop-color="#25cbfd"/>
+    </linearGradient>
+    <clipPath id="clip-Skills-FE-bg">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="Skills-FE-bg" clip-path="url(#clip-Skills-FE-bg)">
+    <rect width="1920" height="1080" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

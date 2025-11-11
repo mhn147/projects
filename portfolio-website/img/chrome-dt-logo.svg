@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.149" cy="0.136" r="1.004" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="-0.002" cy="0.001" r="1.363" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1a237e" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#1a237e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-3" cx="0.851" cy="0.134" r="1.537" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1a237e" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="#1a237e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-4" cx="0.413" cy="0" r="0.565" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1a237e" stop-opacity="0.149"/>
+      <stop offset="1" stop-color="#1a237e" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip-chrome-dt-logo">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="chrome-dt-logo" clip-path="url(#clip-chrome-dt-logo)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="240" height="240" rx="9" transform="translate(26 67)" fill="none"/>
+    <g id="Page-1" transform="translate(10.173 10.173)">
+      <g id="Master">
+        <g id="Logo">
+          <rect id="Mask" width="176" height="176" rx="12" transform="translate(22 22)" fill="#2879ff"/>
+          <g id="Grid">
+            <g id="Groupe_9" data-name="Groupe 9">
+              <path id="Shape" d="M0,0,219.655,219.655" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <path id="Shape-2" data-name="Shape" d="M219.655,0,0,219.655" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <path id="Shape-3" data-name="Shape" d="M123.75,0V219.655" transform="translate(17.824)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <path id="Shape-4" data-name="Shape" d="M68.25,0V219.655" transform="translate(9.83)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <path id="Shape-5" data-name="Shape" d="M219.655,123.75H0" transform="translate(0 17.824)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <path id="Shape-6" data-name="Shape" d="M219.655,68.25H0" transform="translate(0 9.83)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <circle id="Oval" cx="43" cy="43" r="43" transform="translate(67 67)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+              <path id="Shape-7" data-name="Shape" d="M0,96H219.655" transform="translate(0 13.827)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+              <path id="Shape-8" data-name="Shape" d="M96,0V219.655" transform="translate(13.827)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill-rule="evenodd"/>
+            </g>
+          </g>
+          <circle id="Lux" cx="70" cy="70" r="70" transform="translate(40 40)" fill="url(#radial-gradient)"/>
+          <path id="Shadow-Top" d="M161.851,0H13.873C6.243,0,0,5.931,0,13.179v1.1C0,7.029,6.243,1.1,13.873,1.1H161.851c7.63,0,13.873,5.931,13.873,13.179v-1.1C175.724,5.931,169.481,0,161.851,0Z" transform="translate(21.965 21.965)" fill="#fff" fill-rule="evenodd" opacity="0.2"/>
+          <path id="Shadow-Bottom" d="M161.851,152.179H13.873C6.243,152.179,0,146.249,0,139v1.1c0,7.249,6.243,13.179,13.873,13.179H161.851c7.63,0,13.873-5.931,13.873-13.179V139c0,7.249-6.243,13.179-13.873,13.179Z" transform="translate(21.965 44.412)" fill-rule="evenodd" opacity="0.1"/>
+          <path id="Inner-Shadow-Left" d="M51.893,69.888,25,43,54.35,93.332a30.154,30.154,0,0,1-2.456-23.443Z" transform="translate(26.815 29.978)" fill-rule="evenodd" fill="url(#radial-gradient-2)"/>
+          <path id="Inner-Shadow-Bottom" d="M82.851,104.274,73,141.027,102.175,90l-.008,0A30.11,30.11,0,0,1,82.851,104.274Z" transform="translate(34.079 37.451)" fill-rule="evenodd" fill="url(#radial-gradient-3)"/>
+          <path id="Inner-Shadow-Top" d="M100.778,58.313,137.487,48.5H79.02q-.229,0-.46,0a30.059,30.059,0,1,0,22.218,9.813Z" transform="translate(32.155 31.117)" fill-rule="evenodd" fill="url(#radial-gradient-4)"/>
+          <path id="Circle-Outer" d="M86.29,156.579A70.29,70.29,0,1,0,16,86.29,70.29,70.29,0,0,0,86.29,156.579Z" transform="translate(23.538 23.538)" fill="none" stroke="#fff" stroke-width="4"/>
+          <circle id="Circle-Middle" cx="31" cy="31" r="31" transform="translate(79 79)" fill="none" stroke="#fff" stroke-width="4"/>
+          <circle id="Circle-Inner" cx="22" cy="22" r="22" transform="translate(88 88)" fill="none" stroke="#fff" stroke-width="4"/>
+          <rect id="Right" width="58.209" height="2.197" transform="translate(111.502 77.827)" fill="#fff"/>
+          <rect id="Bottom" width="58.209" height="2.197" transform="translate(137.002 127.41) rotate(120)" fill="#fff"/>
+          <rect id="Left" width="58.209" height="2.197" transform="translate(81.231 124.631) rotate(-120)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

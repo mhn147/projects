@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <clipPath id="clip-ng-logo">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="ng-logo" clip-path="url(#clip-ng-logo)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="240" height="240" rx="9" fill="none"/>
+    <g id="angular-icon-1" transform="translate(13.788 6.766)">
+      <path id="Tracé_53" data-name="Tracé 53" d="M.1,38,104.8.7,212.324,37.339l-17.41,138.526L104.8,225.771,16.1,176.528Z" transform="translate(0)" fill="#e23237"/>
+      <path id="Tracé_54" data-name="Tracé 54" d="M233.43,37.339,125.908.7V225.771l90.112-49.823L233.43,37.339Z" transform="translate(-21.106)" fill="#b52e31"/>
+      <path id="Tracé_55" data-name="Tracé 55" d="M112.956,32.274,47.714,177.432l24.372-.414,13.1-32.746h58.527l14.342,33.161,23.294.414L112.956,32.274Zm.166,46.507,22.051,46.092H93.723l19.4-46.092Z" transform="translate(-7.988 -5.297)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

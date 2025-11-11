@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.007" x2="0.5" y2="0.97" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#86bbe5"/>
+      <stop offset="1" stop-color="#1072ba"/>
+    </linearGradient>
+    <clipPath id="clip-chrome-logo">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="chrome-logo" clip-path="url(#clip-chrome-logo)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="240" height="240" rx="9" transform="translate(26 67)" fill="none"/>
+    <g id="chrome-7" transform="translate(20.227 20.19)">
+      <path id="Tracé_3519" data-name="Tracé 3519" d="M104.312.03S162.927-2.6,194,56.316H99.325s-17.868-.576-33.131,21.1c-4.384,9.1-9.1,18.47-3.809,36.94-7.619-12.907-40.447-70.07-40.447-70.07S45.094,2.359,104.311.03Z" transform="translate(-4.792 0)" fill="#ef3f36"/>
+      <path id="Tracé_3520" data-name="Tracé 3520" d="M212.462,165.572s-27.047,52.093-93.582,49.517c8.221-14.223,47.352-81.99,47.352-81.99s9.454-15.181-1.7-39.241c-5.673-8.358-11.455-17.1-30.089-21.759,14.99-.136,80.895,0,80.895,0S240.029,113.122,212.462,165.572Z" transform="translate(-26.293 -15.975)" fill="#fcd900"/>
+      <path id="Tracé_3521" data-name="Tracé 3521" d="M13.282,162.6S-18.314,113.14,17.2,56.8c8.194,14.223,47.325,81.99,47.325,81.99s8.44,15.784,34.829,18.14c10.058-.739,20.525-1.37,33.9-15.153C125.881,154.821,92.8,211.819,92.8,211.819S44.9,212.7,13.281,162.6Z" transform="translate(0 -12.595)" fill="#61bc5b"/>
+      <path id="Tracé_3522" data-name="Tracé 3522" d="M118.845,236.492l13.317-55.573s14.633-1.152,26.91-14.606C151.454,179.713,118.845,236.492,118.845,236.492Z" transform="translate(-26.285 -36.884)" fill="#5ab055"/>
+      <path id="Tracé_3523" data-name="Tracé 3523" d="M70.462,116.412a44.366,44.366,0,1,1,44.366,44.366,44.371,44.371,0,0,1-44.366-44.366Z" transform="translate(-15.554 -15.977)" fill="#fff"/>
+      <path id="Tracé_3524" data-name="Tracé 3524" d="M80,118.528a36.94,36.94,0,1,1,36.94,36.94A36.939,36.939,0,0,1,80,118.528Z" transform="translate(-17.671 -18.093)" fill="url(#linear-gradient)"/>
+      <path id="Tracé_3525" data-name="Tracé 3525" d="M219.74,72.142,164.906,88.227s-8.275-12.14-26.06-16.086C154.274,72.059,219.74,72.142,219.74,72.142Z" transform="translate(-30.721 -15.99)" fill="#eaca05"/>
+      <path id="Tracé_3526" data-name="Tracé 3526" d="M61.317,124.947c-7.7-13.345-39.379-68.042-39.379-68.042L62.55,97.078s-4.166,8.577-2.6,20.854l1.37,7.016Z" transform="translate(-4.792 -12.618)" fill="#df3a32"/>
+    </g>
+    <text id="DEV" transform="translate(90 167.5)" font-size="33" font-family="CascadiaCode-Bold, Cascadia Code" font-weight="700"><tspan x="0.996" y="31">DEV</tspan></text>
+  </g>
+</svg>
