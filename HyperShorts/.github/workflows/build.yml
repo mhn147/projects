@@ -2,9 +2,12 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - "foo/**"
   pull_request:
+    paths:
+      - "foo/**"
 
 jobs:
   build:
