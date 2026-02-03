@@ -5,9 +5,10 @@ namespace HyperShorts.Web.Core;
 
 public class HyperShortsService(HyperShortsRepository repository)
 {
+    //foo
     private readonly HyperShortsRepository _repo = repository;
 
-    public async Task<string> ShortenLongUrl(string longUrl) 
+    public async Task<string> ShortenLongUrl(string longUrl)
     {
         var hyperShort = new HyperShort
         {
