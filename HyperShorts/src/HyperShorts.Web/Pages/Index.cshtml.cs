@@ -29,7 +29,7 @@ public class IndexModel(HyperShortsService service) : PageModel
 
         var shortCode = await _service.ShortenLongUrl(LongUrl);
 
-        ShortUrl = $"{Request.Scheme}://{Request.Host}/s/{shortCode}";
+        ShortUrl = $"{Request.Scheme}://{Request.Host}/{shortCode}";
 
         return Page();
     }
