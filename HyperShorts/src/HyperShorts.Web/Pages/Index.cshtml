@@ -1,24 +1,61 @@
 ﻿@page
 @model IndexModel
 
-<h1 class="display-4">Welcome to HyperShorts</h1>
-
-<form method="post" class="mt-4">
-    <div class="mb-2">
-        <label asp-for="LongUrl" class="form-label"></label>
-        <input asp-for="LongUrl" class="form-control" />
-        <span asp-validation-for="LongUrl"></span>
+<div class="card shadow-sm" style="max-width: 720px; margin: 0 auto; width: 100%;">
+    <div class="card-header">
+        <h1 class="text-center">🔗 HyperShorts</h1>
     </div>
-    <button type="submit" class="btn btn-primary">Shorten</button>
-</form>
+    <div class="card-body p-3">
+        <form method="post" class="mb-4">
+            <div class="mb-2">
+                <label asp-for="LongUrl" class="form-label text-center">Enter your long URL</label>
+                <input asp-for="LongUrl" class="form-control" placeholder="https://example.com" />
+                <span asp-validation-for="LongUrl"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" id="shortenBtn">
+                Shorten
+            </button>
+        </form>
+        @if (Model.ShortUrl != null)
+        {
+            <div>
+                <hr class="m-0 mb-3" />
+                <label for="short-url-input" class="form-label text-center">Short URL</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="shortUrl" value="@Model.ShortUrl" />
+                    <button class="btn btn-outline-primary" type="button" title="Open" id="openBtn"><i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                    <button class="btn btn-outline-primary" type="button" title="Copy" id="copyBtn">
+                        <i class="fa-solid fa-copy"></i></button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-@if (Model.ShortUrl != null)
-{
-    <hr />
-    <p>
-        Short URL:
-        <a href="@Model.ShortUrl" target="_blank">
-            @Model.ShortUrl
-        </a>
-    </p>
+@section Scripts {
+    <script>
+        document.getElementById("copyBtn").addEventListener("click", async () => {
+            const input = document.getElementById("shortUrl");
+            const value = input.value;
+
+            try {
+                await navigator.clipboard.writeText(value);
+                console.log(`Copied ${value}`);
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        document.getElementById("openBtn").addEventListener("click", async () => {
+            const input = document.getElementById("shortUrl");
+            const value = input.value;
+
+            try {
+                window.open(new URL(value), "_blank", "noopener,noreferrer");
+            } catch (err) {
+                console.error(err);
+            }
+        });
+    </script>
 }
