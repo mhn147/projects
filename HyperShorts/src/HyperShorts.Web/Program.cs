@@ -1,10 +1,17 @@
 using HyperShorts.Web.Core;
 using HyperShorts.Web.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
 
 var connString = builder.Configuration.GetConnectionString("HyperShortsDb");
 builder.Services.AddDbContext<AppDbContext>(
@@ -18,6 +25,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
+    app.UseForwardedHeaders();
     app.UseHsts();
 }
 app.UseHttpsRedirection();
@@ -28,7 +36,7 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-app.MapGet("/s/{shortCode}", async (string shortCode, AppDbContext dbContext) =>
+app.MapGet("/{shortCode}", async (string shortCode, AppDbContext dbContext) =>
 {
     var x = await dbContext.HyperShorts.FirstOrDefaultAsync(hs => hs.Code == shortCode);
 
