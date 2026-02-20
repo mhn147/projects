@@ -1,12 +1,31 @@
 ﻿using HyperShorts.Web.Data;
+using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
 
 namespace HyperShorts.Web.Core;
 
-public class HyperShortsService(HyperShortsRepository repository)
+public class HyperShortsService(HyperShortsRepository repository, HyperShortsCache cache)
 {
-    //foo
     private readonly HyperShortsRepository _repo = repository;
+    private readonly HyperShortsCache _cache = cache;
+
+    public async Task<string?> GetLongUrl(string code)
+    {
+        var longUrl = await _cache.GetLongUrl(code);
+        if (!string.IsNullOrWhiteSpace(longUrl))
+        {
+            return longUrl;
+        }
+
+        var hyperShort = await _repo.Get(code);
+
+        if (hyperShort != null)
+        {
+            await _cache.Set(hyperShort.Code, hyperShort.LongUrl);
+        }
+
+        return hyperShort?.LongUrl;
+    }
 
     public async Task<string> ShortenLongUrl(string longUrl)
     {
@@ -20,6 +39,8 @@ public class HyperShortsService(HyperShortsRepository repository)
         savedHyperShort.Code = base62Encode(savedHyperShort.Id);
 
         await _repo.Update();
+
+        await _cache.Set(savedHyperShort.Code, savedHyperShort.LongUrl);
 
         return savedHyperShort.Code;
     }

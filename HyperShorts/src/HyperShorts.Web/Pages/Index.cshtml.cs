@@ -21,8 +21,7 @@ public class IndexModel(HyperShortsService service) : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // TODO: validation
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid || string.IsNullOrWhiteSpace(LongUrl))
         {
             return Page();
         }

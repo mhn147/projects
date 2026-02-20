@@ -18,7 +18,14 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlite(connString));
 
 builder.Services.AddScoped<HyperShortsRepository>();
+builder.Services.AddScoped<HyperShortsCache>();
 builder.Services.AddScoped<HyperShortsService>();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "hypershort:";
+});
 
 var app = builder.Build();
 
@@ -36,16 +43,16 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-app.MapGet("/{shortCode}", async (string shortCode, AppDbContext dbContext) =>
+app.MapGet("/{shortCode}", async (string shortCode, HyperShortsService service) =>
 {
-    var x = await dbContext.HyperShorts.FirstOrDefaultAsync(hs => hs.Code == shortCode);
+    var hyperShort = await service.GetLongUrl(shortCode);
 
-    if (x == null)
+    if (string.IsNullOrWhiteSpace(hyperShort))
     {
         return Results.NotFound();
     }
 
-    return Results.Redirect(x.LongUrl, permanent: true);
+    return Results.Redirect(hyperShort, permanent: true);
 });
 
 app.Run();
