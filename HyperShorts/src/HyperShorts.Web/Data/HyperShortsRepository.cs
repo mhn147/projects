@@ -1,10 +1,12 @@
-﻿namespace HyperShorts.Web.Data
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace HyperShorts.Web.Data
 {
     public class HyperShortsRepository(AppDbContext context)
     {
         private readonly AppDbContext _context = context;
 
-        public async Task<HyperShort> Save(HyperShort hyperShort) 
+        public async Task<HyperShort> Save(HyperShort hyperShort)
         {
             _context.Add(hyperShort);
             await _context.SaveChangesAsync();
@@ -18,7 +20,7 @@
 
         public async Task<HyperShort?> Get(string shortCode)
         {
-            var result = await _context.HyperShorts.FindAsync(shortCode);
+            var result = await _context.HyperShorts.FirstOrDefaultAsync(hs => hs.Code == shortCode);
             return result;
         }
     }

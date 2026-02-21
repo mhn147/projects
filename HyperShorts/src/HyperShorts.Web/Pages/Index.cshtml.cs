@@ -21,15 +21,14 @@ public class IndexModel(HyperShortsService service) : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // TODO: validation
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid || string.IsNullOrWhiteSpace(LongUrl))
         {
             return Page();
         }
 
         var shortCode = await _service.ShortenLongUrl(LongUrl);
 
-        ShortUrl = $"{Request.Scheme}://{Request.Host}/s/{shortCode}";
+        ShortUrl = $"{Request.Scheme}://{Request.Host}/{shortCode}";
 
         return Page();
     }
