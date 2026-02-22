@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TomoPlan.Web.Data;
 
@@ -10,9 +11,11 @@ using TomoPlan.Web.Data;
 namespace TomoPlan.Web.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260222065020_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.3");
@@ -245,13 +248,13 @@ namespace TomoPlan.Web.Data.Migrations
                     b.Property<Guid?>("DailyPlanId")
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeOnly>("End")
+                    b.Property<DateTimeOffset>("End")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsComplete")
                         .HasColumnType("INTEGER");
 
-                    b.Property<TimeOnly>("Start")
+                    b.Property<DateTimeOffset>("Start")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Text")

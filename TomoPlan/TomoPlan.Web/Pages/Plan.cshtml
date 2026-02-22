@@ -1,0 +1,38 @@
+@page "{date:datetime}"
+@model TomoPlan.Web.Pages.Plan
+
+<div class="">
+    <!-- Date Selector Section -->
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-dark"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="text-center mb-2">
+            <p class="text-uppercase fs-3 m-0">@Model.DailyPlanViewModel.DayOfWeek</p>
+            <p class="fs-1 m-0">@Model.DailyPlanViewModel.Date.ToString("MMM dd, yyyy")</p>
+            <p class="fs-4 m-0">
+                <span class="badge text-bg-dark">
+                    @Model.DailyPlanViewModel.DayBadge
+                </span>
+            </p>
+        </div>
+        <button class="btn btn-dark"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <hr>
+    
+    <!-- Blocks Section -->
+    @if (@Model.DailyPlanViewModel.Tasks.Count != 0)
+    {
+        // ... display blocks    
+    }
+    
+    <!-- Add Block Section -->
+    <div class="mt-2 w-100 p-3 d-flex align-items-center"
+         style="border: 2px dashed gray;">
+        <span><i class="fa-solid fa-plus"></i></span>
+        <p class="m-0 ms-2">Add a time block</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+    </script>
+}
