@@ -16,7 +16,7 @@ public class DailyPlansRepository(AppDbContext context)
                 dp.Date.DateTime == date.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc));
     }
 
-    public async Task<DailyPlan> Create(DateOnly date, Guid ownerId)
+    public async Task<DailyPlan> Create(Guid ownerId, DateOnly date)
     {
         var newPlan = new DailyPlan
         {
