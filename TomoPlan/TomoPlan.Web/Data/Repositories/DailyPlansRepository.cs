@@ -5,12 +5,11 @@ namespace TomoPlan.Web.Data.Repositories;
 
 public class DailyPlansRepository(AppDbContext context)
 {
-    private readonly AppDbContext _context = context;
-
     public async Task<DailyPlan?> Get(Guid ownerId, DateOnly date)
     {
         // TODO: do not load all in memory. figure out EF Core issue with dates and load just the one
-        return await _context.DailyPlans
+        return await context.DailyPlans
+            .Include(dp => dp.Tasks)
             .AsAsyncEnumerable()
             .FirstOrDefaultAsync(dp => 
                 dp.OwnerId == ownerId &&
@@ -25,9 +24,16 @@ public class DailyPlansRepository(AppDbContext context)
             OwnerId = ownerId
         };
         
-        await _context.DailyPlans.AddAsync(newPlan);
-        await _context.SaveChangesAsync();
+        await context.DailyPlans.AddAsync(newPlan);
+        await context.SaveChangesAsync();
 
         return newPlan;
+    }
+    
+    public async Task<DailyPlan> Update(DailyPlan plan)
+    {
+        context.DailyPlans.Update(plan);
+        await context.SaveChangesAsync();
+        return plan;
     }
 }

@@ -6,7 +6,7 @@ public enum DayBadge
     Today
 }
 
-public class DailyTask
+public class DailyTaskViewModel
 {
     public Guid Id { get; set; }
     public string Text { get; set; }
@@ -20,5 +20,5 @@ public class DailyPlanViewModel
     public DateTimeOffset Date { get; set; }
     public DayBadge DayBadge { get; set; }
     public bool IsReadOnly { get; set; }
-    public List<DailyTask> Tasks { get; set; } = new List<DailyTask>();
+    public List<DailyTaskViewModel> Tasks { get; set; } = new List<DailyTaskViewModel>();
 }

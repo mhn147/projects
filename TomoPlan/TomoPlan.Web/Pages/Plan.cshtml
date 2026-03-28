@@ -21,18 +21,64 @@
     <!-- Blocks Section -->
     @if (@Model.DailyPlanViewModel.Tasks.Count != 0)
     {
-        // ... display blocks    
+        foreach (var task in @Model.DailyPlanViewModel.Tasks)
+        {
+            <div class="row rounded border">
+                <div class="col-2 p-1 rounded-start d-flex flex-column align-items-center bg-secondary-subtle">
+                    <span>@task.Start</span>
+                    <span><i class="fa-solid fa-arrow-down"></i></span>
+                    <span>@task.End</span>
+                </div>
+                <div class="col-8 p-1 d-flex align-items-center justify-content-center">
+                    @task.Text
+                </div>
+                <div class="col-2 p-1 rounded-end d-flex align-items-center justify-content-center bg-secondary-subtle">
+                    <button class="btn p-0"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="ms-1 p-0 btn"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+        }
     }
     
     <!-- Add Block Section -->
     <div class="mt-2 w-100 p-3 d-flex align-items-center"
+         data-bs-toggle="modal" data-bs-target="#taskModal"
+         id="add-block-input"
          style="border: 2px dashed gray;">
         <span><i class="fa-solid fa-plus"></i></span>
         <p class="m-0 ms-2">Add a time block</p>
     </div>
-</div>
 
-@section Scripts {
-    <script>
-    </script>
-}
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form asp-page-handler="AddTimeBlock" method="POST">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="taskModalLabel">New Time Block</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <label asp-for="TimeBlock.Start" class="form-label">From</label>
+                                <input asp-for="TimeBlock.Start" class="form-control" type="time" /> 
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label asp-for="TimeBlock.End" class="form-label"></label>
+                                <input asp-for="TimeBlock.End" class="form-control" type="time" />
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label asp-for="TimeBlock.Text" class="form-label"></label>
+                                <textarea asp-for="TimeBlock.Text" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-start">
+                        <button type="submit" class="btn btn-dark">Add Block</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

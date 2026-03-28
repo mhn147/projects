@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DayDraft — Wireframes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1a;
+    font-family: 'Courier New', monospace;
+    color: #333;
+    padding: 40px 20px;
+  }
+  h1 {
+    color: #888;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .screens {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .screen-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .screen-label {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Browser chrome */
+  .browser {
+    width: 480px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border: 1px solid #3a3a3a;
+  }
+
+  .browser-bar {
+    background: #333;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #3a3a3a;
+  }
+  .dots { display: flex; gap: 5px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #444; }
+  .url-bar {
+    flex: 1;
+    background: #222;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 10px;
+    color: #666;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* App shell */
+  .app {
+    background: #faf9f6;
+    min-height: 560px;
+  }
+
+  /* Nav bar */
+  .nav {
+    background: #faf9f6;
+    border-bottom: 1.5px solid #e0ddd6;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #222;
+    font-family: 'Courier New', monospace;
+  }
+  .nav-logo span { color: #aaa; font-weight: normal; }
+
+  /* Date header */
+  .date-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid #e8e5de;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .date-nav-btn {
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    background: #ede9e0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: #888;
+    flex-shrink: 0;
+  }
+  .date-center { text-align: center; flex: 1; }
+  .date-day {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 2px;
+  }
+  .date-main {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    font-family: 'Courier New', monospace;
+  }
+  .date-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: #1a1a1a;
+    color: #faf9f6;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+
+  /* Time blocks list */
+  .blocks-area {
+    padding: 16px 24px;
+  }
+
+  .blocks-empty {
+    text-align: center;
+    padding: 40px 0;
+    color: #bbb;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border: 1.5px dashed #ddd;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .time-block {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #e0ddd6;
+    background: #fff;
+  }
+  .time-block.active {
+    border-color: #1a1a1a;
+  }
+  .time-block-time {
+    background: #f0ede6;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    min-width: 90px;
+    border-right: 1px solid #e0ddd6;
+  }
+  .time-block.active .time-block-time {
+    background: #1a1a1a;
+    border-right-color: #1a1a1a;
+  }
+  .time-start { font-size: 12px; font-weight: bold; color: #444; }
+  .time-end { font-size: 10px; color: #aaa; }
+  .time-block.active .time-start { color: #faf9f6; }
+  .time-block.active .time-end { color: #888; }
+  .time-block-label {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #222;
+    display: flex;
+    align-items: center;
+  }
+  .time-block-actions {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 6px;
+  }
+  .action-btn {
+    width: 22px; height: 22px;
+    border-radius: 3px;
+    background: #f0ede6;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    color: #888;
+  }
+
+  /* Add block form */
+  .add-form {
+    background: #fff;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-top: 12px;
+  }
+  .add-form-title {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .form-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .form-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .form-field label {
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #aaa;
+  }
+  .form-input {
+    background: #f5f3ee;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 7px 10px;
+    font-size: 12px;
+    color: #333;
+    font-family: 'Courier New', monospace;
+  }
+  .form-input.active {
+    border-color: #1a1a1a;
+    background: #fff;
+  }
+  .form-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .btn-primary {
+    background: #1a1a1a;
+    color: #faf9f6;
+    padding: 8px 16px;
+    border-radius: 3px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    font-family: 'Courier New', monospace;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: #aaa;
+    padding: 8px 16px;
+    border-radius: 3px;
+    font-size: 11px;
+    border: 1px solid #ddd;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Add block trigger */
+  .add-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1.5px dashed #ccc;
+    border-radius: 4px;
+    color: #bbb;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .add-trigger-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #e8e5de;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #999;
+    line-height: 1;
+  }
+
+  /* Edit modal overlay */
+  .modal-overlay {
+    background: rgba(26,26,26,0.55);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal {
+    background: #faf9f6;
+    border-radius: 6px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid #ddd;
+  }
+  .modal-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 14px;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .btn-danger {
+    background: transparent;
+    color: #c0392b;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 11px;
+    border: 1px solid #e0b0aa;
+    margin-left: auto;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Annotation layer */
+  .annotations {
+    margin-top: 16px;
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .ann {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 10px;
+    color: #666;
+    font-family: 'Courier New', monospace;
+  }
+  .ann-num {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #444;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+  .ann-text { color: #666; line-height: 1.4; }
+
+  .screen-section-label {
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  /* relative wrapper for modal screens */
+  .app-relative { position: relative; }
+</style>
+</head>
+<body>
+
+<h1>DayDraft — Mid-Fidelity Wireframes</h1>
+<p class="subtitle">ASP.NET Core Razor Pages · Daily Planner</p>
+
+<div class="screens">
+
+  <!-- SCREEN 1: Main view with blocks -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 1 — Main Planner (Populated)</div>
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="url-bar">localhost:5000/plan/2026-02-22</div>
+      </div>
+      <div class="app">
+        <!-- Nav -->
+        <div class="nav">
+          <div class="nav-logo">DAYDRAFT<span>.app</span></div>
+        </div>
+        <!-- Date header -->
+        <div class="date-header">
+          <div class="date-nav-btn">‹</div>
+          <div class="date-center">
+            <div class="date-day">Sunday</div>
+            <div class="date-main">Feb 22, 2026</div>
+            <div class="date-badge">Tomorrow</div>
+          </div>
+          <div class="date-nav-btn">›</div>
+        </div>
+        <!-- Blocks -->
+        <div class="blocks-area">
+          <div class="time-block active">
+            <div class="time-block-time">
+              <div class="time-start">7:00 AM</div>
+              <div class="time-end">→ 9:00 AM</div>
+            </div>
+            <div class="time-block-label">Video games</div>
+            <div class="time-block-actions">
+              <div class="action-btn">✎</div>
+              <div class="action-btn">✕</div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-time">
+              <div class="time-start">9:30 AM</div>
+              <div class="time-end">→ 11:00 AM</div>
+            </div>
+            <div class="time-block-label">Deep work — auth module</div>
+            <div class="time-block-actions">
+              <div class="action-btn">✎</div>
+              <div class="action-btn">✕</div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-time">
+              <div class="time-start">12:00 PM</div>
+              <div class="time-end">→ 1:00 PM</div>
+            </div>
+            <div class="time-block-label">Lunch + walk</div>
+            <div class="time-block-actions">
+              <div class="action-btn">✎</div>
+              <div class="action-btn">✕</div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-time">
+              <div class="time-start">2:00 PM</div>
+              <div class="time-end">→ 5:00 PM</div>
+            </div>
+            <div class="time-block-label">Code review + PR fixes</div>
+            <div class="time-block-actions">
+              <div class="action-btn">✎</div>
+              <div class="action-btn">✕</div>
+            </div>
+          </div>
+
+          <div class="add-trigger">
+            <div class="add-trigger-icon">+</div>
+            Add a time block
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-num">1</div><div class="ann-text">Date navigation arrows → /plan/{prev} and /plan/{next} via GET</div></div>
+      <div class="ann"><div class="ann-num">2</div><div class="ann-text">"Tomorrow" badge auto-applied when date = today+1</div></div>
+      <div class="ann"><div class="ann-num">3</div><div class="ann-text">Blocks sorted by StartTime, rendered as rows</div></div>
+      <div class="ann"><div class="ann-num">4</div><div class="ann-text">Edit/delete inline buttons; delete triggers a confirm before POST</div></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Empty state + Add form open -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 2 — Empty State + Add Form</div>
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="url-bar">localhost:5000/plan/2026-02-22</div>
+      </div>
+      <div class="app">
+        <div class="nav">
+          <div class="nav-logo">DAYDRAFT<span>.app</span></div>
+        </div>
+        <div class="date-header">
+          <div class="date-nav-btn">‹</div>
+          <div class="date-center">
+            <div class="date-day">Sunday</div>
+            <div class="date-main">Feb 22, 2026</div>
+            <div class="date-badge">Tomorrow</div>
+          </div>
+          <div class="date-nav-btn">›</div>
+        </div>
+        <div class="blocks-area">
+          <div class="blocks-empty">
+            No blocks yet — start planning your day
+          </div>
+          <div class="add-form">
+            <div class="add-form-title">New time block</div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>From</label>
+                <div class="form-input active">7:00 AM</div>
+              </div>
+              <div class="form-field">
+                <label>To</label>
+                <div class="form-input">9:00 AM</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Task</label>
+                <div class="form-input">Video games</div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <div class="btn-primary">Add block</div>
+              <div class="btn-ghost">Cancel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-num">1</div><div class="ann-text">Empty state shown when no TimeBlocks exist for that date</div></div>
+      <div class="ann"><div class="ann-num">2</div><div class="ann-text">Form toggle: "Add a time block" click reveals inline form (no page nav)</div></div>
+      <div class="ann"><div class="ann-num">3</div><div class="ann-text">Time inputs can be &lt;input type="time"&gt; — browser native picker</div></div>
+      <div class="ann"><div class="ann-num">4</div><div class="ann-text">Submit → POST handler → redirect back to same /plan/{date}</div></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Edit modal -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 3 — Edit Block (Modal)</div>
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="url-bar">localhost:5000/plan/2026-02-22</div>
+      </div>
+      <div class="app app-relative">
+        <div class="nav">
+          <div class="nav-logo">DAYDRAFT<span>.app</span></div>
+        </div>
+        <div class="date-header">
+          <div class="date-nav-btn">‹</div>
+          <div class="date-center">
+            <div class="date-day">Sunday</div>
+            <div class="date-main">Feb 22, 2026</div>
+            <div class="date-badge">Tomorrow</div>
+          </div>
+          <div class="date-nav-btn">›</div>
+        </div>
+        <div class="blocks-area" style="filter: blur(1px); opacity: 0.4; pointer-events: none;">
+          <div class="time-block">
+            <div class="time-block-time">
+              <div class="time-start">7:00 AM</div>
+              <div class="time-end">→ 9:00 AM</div>
+            </div>
+            <div class="time-block-label">Video games</div>
+            <div class="time-block-actions">
+              <div class="action-btn">✎</div>
+              <div class="action-btn">✕</div>
+            </div>
+          </div>
+          <div class="time-block">
+            <div class="time-block-time">
+              <div class="time-start">9:30 AM</div>
+              <div class="time-end">→ 11:00 AM</div>
+            </div>
+            <div class="time-block-label">Deep work — auth module</div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
+          <div class="modal">
+            <div class="modal-title">Edit time block</div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>From</label>
+                <div class="form-input active">7:00 AM</div>
+              </div>
+              <div class="form-field">
+                <label>To</label>
+                <div class="form-input active">9:00 AM</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Task</label>
+                <div class="form-input active">Video games</div>
+              </div>
+            </div>
+            <div class="modal-actions">
+              <div class="btn-primary">Save</div>
+              <div class="btn-ghost">Cancel</div>
+              <div class="btn-danger">Delete</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-num">1</div><div class="ann-num" style="background:transparent; width:auto; color:#666;"> Edit modal overlays the page — can be a Razor partial or simple JS show/hide</div></div>
+      <div class="ann"><div class="ann-num">2</div><div class="ann-text">Save → PUT/POST to ?handler=Edit, Delete → POST to ?handler=Delete</div></div>
+      <div class="ann"><div class="ann-num">3</div><div class="ann-text">Delete button in edit modal (no separate confirm screen needed)</div></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ namespace TomoPlan.Web.Pages
     {
         public IActionResult OnGet()
         {
+            // TODO: use the user's local timezone
             var now = DateTime.Now;
             var planDate = now.Hour >= 22
                 ? DateOnly.FromDateTime(now.AddDays(1))

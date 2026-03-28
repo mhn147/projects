@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TomoPlan.Web.Core;
 using TomoPlan.Web.Data;
 using TomoPlan.Web.Data.Repositories;
 
@@ -12,6 +13,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddTransient<DailyPlansRepository>();
+builder.Services.AddTransient<DailyPlansService>();
 
 var app = builder.Build();
 
