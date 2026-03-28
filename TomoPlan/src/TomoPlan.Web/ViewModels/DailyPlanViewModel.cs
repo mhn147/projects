@@ -9,7 +9,7 @@ public enum DayBadge
 public class DailyTaskViewModel
 {
     public Guid Id { get; set; }
-    public string Text { get; set; }
+    public string Text { get; set; } = string.Empty;
     public TimeOnly Start { get; set; }   
     public TimeOnly End { get; set; }   
 }

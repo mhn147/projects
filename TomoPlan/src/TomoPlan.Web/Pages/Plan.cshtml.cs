@@ -65,6 +65,8 @@ public class Plan(
         var dailyPlan = await dailyPlanRepo.Get(userId, dateOnly);
         
         // TODO: throw/return error if dailyPlan is null
+        if (dailyPlan == null)
+            throw new Exception("foo");
         
         // check if available
         var conflict = DailyPlanService.TimeBlockConflict(dailyPlan, TimeBlock);

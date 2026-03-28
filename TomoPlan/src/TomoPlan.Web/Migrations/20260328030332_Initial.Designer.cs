@@ -8,11 +8,11 @@ using TomoPlan.Web.Data;
 
 #nullable disable
 
-namespace TomoPlan.Web.Data.Migrations
+namespace TomoPlan.Web.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260222065020_second")]
-    partial class second
+    [Migration("20260328030332_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,13 +248,13 @@ namespace TomoPlan.Web.Data.Migrations
                     b.Property<Guid?>("DailyPlanId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("End")
+                    b.Property<TimeOnly>("End")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsComplete")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTimeOffset>("Start")
+                    b.Property<TimeOnly>("Start")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Text")

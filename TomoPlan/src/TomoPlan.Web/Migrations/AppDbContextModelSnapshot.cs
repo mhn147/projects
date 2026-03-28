@@ -7,7 +7,7 @@ using TomoPlan.Web.Data;
 
 #nullable disable
 
-namespace TomoPlan.Web.Data.Migrations
+namespace TomoPlan.Web.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

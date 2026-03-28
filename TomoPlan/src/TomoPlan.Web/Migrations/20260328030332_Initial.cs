@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TomoPlan.Web.Data.Migrations
+namespace TomoPlan.Web.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -48,6 +48,21 @@ namespace TomoPlan.Web.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DailyPlans",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    IsComplete = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Rating = table.Column<short>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DailyPlans", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +171,27 @@ namespace TomoPlan.Web.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DailyPlanTask",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Text = table.Column<string>(type: "TEXT", nullable: false),
+                    Start = table.Column<TimeOnly>(type: "TEXT", nullable: false),
+                    End = table.Column<TimeOnly>(type: "TEXT", nullable: false),
+                    IsComplete = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DailyPlanId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DailyPlanTask", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DailyPlanTask_DailyPlans_DailyPlanId",
+                        column: x => x.DailyPlanId,
+                        principalTable: "DailyPlans",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +228,11 @@ namespace TomoPlan.Web.Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DailyPlanTask_DailyPlanId",
+                table: "DailyPlanTask",
+                column: "DailyPlanId");
         }
 
         /// <inheritdoc />
@@ -213,10 +254,16 @@ namespace TomoPlan.Web.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DailyPlanTask");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "DailyPlans");
         }
     }
 }
