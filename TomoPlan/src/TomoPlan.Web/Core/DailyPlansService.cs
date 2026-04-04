@@ -29,7 +29,7 @@ public class DailyPlansService
 
     public async Task<DailyPlan> GetOrCreatePlan(Guid ownerId, DateOnly date)
     {
-        var dailyPlan = await _repo.Get(ownerId, date);
+        var dailyPlan = await _repo.GetPlan(ownerId, date);
 
         if (dailyPlan == null)
         {
@@ -41,11 +41,22 @@ public class DailyPlansService
 
     public async Task<DailyPlan?> GetPlan(Guid ownerId, DateOnly date)
     {
-        var dailyPlan = await _repo.Get(ownerId, date);
+        var dailyPlan = await _repo.GetPlan(ownerId, date);
         return dailyPlan;
     }
 
-    public bool TimeBlockConflict(DailyPlan dailyPlan, DailyTaskViewModel newTask)
+    public async Task<DailyPlan?> DeleteTask(Guid planId, Guid taskId)
+    {
+        var plan = await _repo.GetPlanById(planId);
+        var task = plan?.Tasks.FirstOrDefault(t => t.Id == taskId);
+        if (task != null && plan != null)
+        {
+            await _repo.DeleteTask(plan, task);
+        }
+        return plan;
+    }
+
+    public bool TimeBlockConflict(DailyPlan dailyPlan, DayTaskViewModel newTask)
     {
         if (dailyPlan.Tasks.Count == 0)
         {
@@ -63,7 +74,7 @@ public class DailyPlansService
         return false;
     }
     
-    public async Task<DailyPlan> AddTimeBlock(DailyPlan dailyPlan, DailyTaskViewModel newTask)
+    public async Task<DailyPlan> AddTimeBlock(DailyPlan dailyPlan, DayTaskViewModel newTask)
     {
         dailyPlan.Tasks.Add(new DailyPlanTask
         {
