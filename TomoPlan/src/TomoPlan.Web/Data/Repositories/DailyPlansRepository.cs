@@ -8,6 +8,12 @@ public class DailyPlansRepository(AppDbContext context)
     public async Task<DailyPlan?> GetPlan(Guid ownerId, DateOnly date)
     {
         // TODO: do not load all in memory. figure out EF Core issue with dates and load just the one
+        var foo = await context.DailyPlans
+            .Include(dp => dp.Tasks)
+            .AsAsyncEnumerable()
+            .FirstOrDefaultAsync(dp =>
+                dp.OwnerId == ownerId &&
+                dp.Date.DateTime == date.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc));
         return await context.DailyPlans
             .Include(dp => dp.Tasks)
             .AsAsyncEnumerable()

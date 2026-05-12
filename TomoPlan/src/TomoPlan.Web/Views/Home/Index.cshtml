@@ -1,0 +1,95 @@
+﻿@model PlanViewModel
+
+<!-- Date Selector Section -->
+<div class="d-flex justify-content-between align-items-center">
+    <a id="prevDayBtn" class="btn btn-dark" asp-controller="home" asp-action="index">
+        <i class="fa-solid fa-chevron-left"></i>
+    </a>
+    <div class="text-center mb-2">
+        <p class="text-uppercase fs-3 m-0">@Model.DayOfWeek</p>
+        <p class="fs-1 m-0" id="currentDate">@Model.Date.ToString("MMM dd, yyyy")</p>
+        <p class="fs-4 m-0">
+            <span class="badge text-bg-dark">
+                @Model.DayBadge
+            </span>
+        </p>
+    </div>
+    <a id="nextDayBtn" class="btn btn-dark" asp-controller="home" asp-action="index">
+        <i class="fa-solid fa-chevron-right"></i>
+    </a>
+</div>
+<hr>
+
+@if (@Model.Tasks.Count != 0)
+{
+    foreach (var task in @Model.Tasks)
+    {
+        <partial name="_Task" model="task" />
+    }
+}
+
+<!-- Add Block Section -->
+<div class="mt-4 w-100 p-3 d-flex align-items-center"
+     data-bs-toggle="modal" data-bs-target="#taskModal"
+     id="add-block-input"
+     style="border: 2px dashed gray;">
+    <span><i class="fa-solid fa-plus"></i></span>
+    <p class="m-0 ms-2">Add a time block</p>
+</div>
+
+<!-- Add Task Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-controller="home" asp-action="AddTask" method="POST" asp-route-date="@Model.Date.ToString("yyyy-MM-dd")">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="taskModalLabel">New Time Block</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <label asp-for="NewTask.Start" class="form-label">From</label>
+                            <input asp-for="NewTask.Start" class="form-control" type="time" />
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label asp-for="NewTask.End" class="form-label"></label>
+                            <input asp-for="NewTask.End" class="form-control" type="time" />
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label asp-for="NewTask.Text" class="form-label"></label>
+                            <textarea asp-for="NewTask.Text" class="form-control" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" asp-for="NewTask.Date" value="@Model.Date" />
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-start">
+                    <button type="submit" class="btn btn-dark">Add Block</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Task Modal -->
+<div id="delTaskModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="delTaskForm" asp-controller="home" asp-action="DeleteTask" asp-route-planId="@Model.Id">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure??</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="submitDelBtn" type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+}

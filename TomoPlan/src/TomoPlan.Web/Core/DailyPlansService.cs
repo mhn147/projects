@@ -56,7 +56,7 @@ public class DailyPlansService
         return plan;
     }
 
-    public bool TimeBlockConflict(DailyPlan dailyPlan, DayTaskViewModel newTask)
+    public bool TimeBlockConflict(DailyPlan dailyPlan, TaskViewModel newTask)
     {
         if (dailyPlan.Tasks.Count == 0)
         {
@@ -74,7 +74,7 @@ public class DailyPlansService
         return false;
     }
     
-    public async Task<DailyPlan> AddTimeBlock(DailyPlan dailyPlan, DayTaskViewModel newTask)
+    public async Task<DailyPlan> AddTimeBlock(DailyPlan dailyPlan, TaskViewModel newTask)
     {
         dailyPlan.Tasks.Add(new DailyPlanTask
         {
