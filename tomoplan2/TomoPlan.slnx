@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="TomoPlan.Core/TomoPlan.Core.csproj" />
+    <Project Path="TomoPlan.Web/TomoPlan.Web.csproj" />
+  </Folder>
+  <Folder Name="/test/" />
+</Solution>
