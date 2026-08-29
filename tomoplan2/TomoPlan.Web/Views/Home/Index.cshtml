@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Tomorrow's Plan";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div id="planner" class="d-flex flex-column mt-4" style="max-width: 42rem; margin: 0 auto;">
+        <div id="planner-header" class="d-flex justify-content-between align-items-center">
+            <button id="prevDay" class="icon-btn" aria-label="Previous day">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+            <div class="day-label-group">
+                <div id="dayLabel" class="day-label">Tomorrow</div>
+                <div id="dateLabel" class="date-label">Jun 28, 2026</div>
+            </div>
+            <button id="nextDay" class="icon-btn" aria-label="Next day">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" /></svg>
+            </button>
+        </div>
+        <div class="my-3 d-grid gap-2">
+            <button id="addTaskBtn" class="btn btn-light border" type="button">
+                <i class="bi bi-plus"></i> Add
+            </button>
+        </div>
+        <div class="grid-wrapper">
+            <div id="grid" class="grid"></div>
+        </div>
+    </div>
 </div>

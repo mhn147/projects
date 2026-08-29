@@ -7,7 +7,7 @@ using TomoPlan.Core.Data.Entities;
 
 namespace TomoPlan.Core.Data;
 
-public  class AppRepository
+public class AppRepository
 {
     private readonly MySqlConnection _dbConnection;
 
@@ -18,31 +18,37 @@ public  class AppRepository
 
     public async Task<bool> UserExists(string email)
     {
-        await _dbConnection.OpenAsync();
+        if (_dbConnection.State != ConnectionState.Open)
+        {
+            await _dbConnection.OpenAsync();
+        }
 
-        var query = 
+        var query =
             """
                 SELECT *
                 FROM users
-                WHERE Email = @Email
+                WHERE email = @Email
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@Email", email);
 
         var result = await cmd.ExecuteScalarAsync();
-        return result != null && (int)result == 1;
+        return result != null;
     }
 
     public async Task<User?> GetUser(string email)
     {
-        await _dbConnection.OpenAsync();
+        if (_dbConnection.State != ConnectionState.Open)
+        {
+            await _dbConnection.OpenAsync();
+        }
 
         var query =
             """
                 SELECT *
                 FROM users
-                WHERE Email = @Email
+                WHERE email = @Email
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
@@ -54,16 +60,16 @@ public  class AppRepository
         {
             return new User
             {
-                Id = reader.GetGuid(reader.GetOrdinal("Id")),
-                Email = reader.GetString(reader.GetOrdinal("Email")),
-                PasswordHash = reader.GetString(reader.GetOrdinal("PasswordHash")),
+                Id = reader.GetGuid(reader.GetOrdinal("id")),
+                Email = reader.GetString(reader.GetOrdinal("email")),
+                PasswordHash = reader.GetString(reader.GetOrdinal("password_hash")),
             };
         }
 
         return null;
     }
 
-    internal async Task AddUser(Guid id, string email, string passwordHash)
+    public async Task AddUser(Guid id, string email, string passwordHash)
     {
         if (_dbConnection.State != ConnectionState.Open) {
             await _dbConnection.OpenAsync();
@@ -71,91 +77,97 @@ public  class AppRepository
 
         var query =
             """
-                INSERT INTO users (Id, Email, PasswordHash)
-                VALUES (@Id, @Email, @PasswordHash)
+                INSERT INTO users (id, email, password_hash, first_name, last_name)
+                VALUES (@Id, @Email, @PasswordHash, @FirstName, @LastName)
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@Id", id);
         cmd.Parameters.AddWithValue("@Email", email);
         cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
+        cmd.Parameters.AddWithValue("@FirstName", "foo");
+        cmd.Parameters.AddWithValue("@LastName", "bar");
 
-       await cmd.ExecuteNonQueryAsync();
+        await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task TestConnectionAsync()
+    public async Task<DailyPlan?> GetPlan(Guid userId, DateOnly date)
     {
-        await _dbConnection.OpenAsync();
-
-        var userId = Guid.NewGuid();
-        var email = $"test_{Guid.NewGuid():N}@example.com";
-
-        // 1. INSERT USER (password hashing inlined)
-        const string insertSql = """
-            INSERT INTO Users
-                (Id, Email, PasswordHash, FirstName, LastName, EmailVerified)
-            VALUES
-                (@Id, @Email, @PasswordHash, @FirstName, @LastName, @EmailVerified);
-            """;
-
-        await using (var cmd = new MySqlCommand(insertSql, _dbConnection))
+        if (_dbConnection.State != ConnectionState.Open)
         {
-            cmd.Parameters.AddWithValue("@Id", userId.ToString());
-            cmd.Parameters.AddWithValue("@Email", email);
-
-            cmd.Parameters.AddWithValue(
-                "@PasswordHash",
-                ComputeMd5("foo")
-            );
-
-            cmd.Parameters.AddWithValue("@FirstName", "Test");
-            cmd.Parameters.AddWithValue("@LastName", "User");
-            cmd.Parameters.AddWithValue("@EmailVerified", false);
-
-            await cmd.ExecuteNonQueryAsync();
+            await _dbConnection.OpenAsync();
         }
 
-        // 2. READ USER BACK
-        const string selectSql = """
-            SELECT
-                Id,
-                Email,
-                PasswordHash,
-                FirstName,
-                LastName,
-                EmailVerified
-            FROM Users
-            WHERE Id = @Id;
+        var query =
+            """
+                SELECT *
+                FROM daily_plans
+                WHERE user_id = @UserId AND date = @Date
             """;
 
-        await using (var cmd = new MySqlCommand(selectSql, _dbConnection))
+        await using var cmd = new MySqlCommand(query, _dbConnection);
+        cmd.Parameters.AddWithValue("@UserId", userId.ToString());
+        cmd.Parameters.AddWithValue("@Date", date);
+
+        using var reader = await cmd.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
         {
-            cmd.Parameters.AddWithValue("@Id", userId.ToString());
-
-            await using var reader = await cmd.ExecuteReaderAsync();
-
-            if (await reader.ReadAsync())
+            return new DailyPlan
             {
-                Console.WriteLine("✅ USER ROUNDTRIP SUCCESS");
-                Console.WriteLine($"Id: {reader.GetString("Id")}");
-                Console.WriteLine($"Email: {reader.GetString("Email")}");
-                Console.WriteLine($"Name: {reader.GetString("FirstName")} {reader.GetString("LastName")}");
-                Console.WriteLine($"Verified: {reader.GetBoolean("EmailVerified")}");
-            }
-            else
-            {
-                Console.WriteLine("❌ USER NOT FOUND");
-            }
+                Id = reader.GetGuid(reader.GetOrdinal("id")),
+                UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
+                Date = reader.GetDateOnly(reader.GetOrdinal("date")),
+            };
         }
+
+        return null;
     }
 
-    public static string ComputeMd5(string input)
+    public async Task<DailyPlan> AddPlan(Guid userId, DateOnly date)
     {
-        using var md5 = MD5.Create();
+        if (_dbConnection.State != ConnectionState.Open)
+        {
+            await _dbConnection.OpenAsync();
+        }
 
-        var inputBytes = Encoding.UTF8.GetBytes(input);
-        var hashBytes = md5.ComputeHash(inputBytes);
+        var id = Guid.NewGuid().ToString();
 
-        return Convert.ToHexString(hashBytes); // uppercase hex string
+        var query =
+            """
+                INSERT INTO daily_plans (id, user_id, date)
+                VALUES (@Id, @UserId, @Date)
+            """;
+
+        await using var cmd = new MySqlCommand(query, _dbConnection);
+        cmd.Parameters.AddWithValue("@Id", id);
+        cmd.Parameters.AddWithValue("@UserId", userId.ToString());
+        cmd.Parameters.AddWithValue("@Date", date.ToString("O"));
+
+        await cmd.ExecuteNonQueryAsync();
+
+        query =
+            """
+                SELECT *
+                FROM daily_plans
+                WHERE Id = @Id
+            """;
+
+        await using var selectCmd = new MySqlCommand(query, _dbConnection);
+        selectCmd.Parameters.AddWithValue("@Id", id);
+
+        using var reader = await selectCmd.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
+        {
+            return new DailyPlan
+            {
+                Id = reader.GetGuid(reader.GetOrdinal("Id")),
+                UserId = reader.GetGuid(reader.GetOrdinal("UserId")),
+                Date = reader.GetDateOnly(reader.GetOrdinal("Date")),
+            };
+        }
+
+        throw new Exception("foo");
     }
 }

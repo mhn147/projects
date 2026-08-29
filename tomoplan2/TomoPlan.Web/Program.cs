@@ -39,6 +39,7 @@ builder.Services.AddScoped(_ =>
 
 builder.Services.AddScoped<AppRepository>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AppService>();
 
 var app = builder.Build();
 
