@@ -1,4 +1,4 @@
-﻿@model TomoPlan.Web.ViewModels.DailyPlanViewModel;
+﻿@model TomoPlan.Core.Data.Entities.DailyPlan;
 
 @{
     ViewData["Title"] = "Tomorrow's Plan";
@@ -31,8 +31,7 @@
 
 @section Scripts {
     <script>
-        document.todayDate = new Date('@Html.Raw(@Model.Today.Date.ToString("O"))');
-        document.tomoDate = new Date('@Html.Raw(@Model.Tomorrow.Date.ToString("O"))');
+        document.planDate = new Date('@Html.Raw(@Model.Date.ToString("O"))');
     </script>
-    <script src="~/js/pages/plan.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/plans/index.js" asp-append-version="true"></script>
 }

@@ -21,17 +21,12 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index(DateTimeOffset? date)
     {
-        date = date ?? DateTimeOffset.UtcNow;
+        date ??= DateTimeOffset.UtcNow;
 
-        var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
         var todayPlan = await _appService.GetOrCreatePlan(userId, date.Value);
-        var tomoPlan = await _appService.GetOrCreatePlan(userId, date.Value.AddDays(1));
         
-        return View(new DailyPlanViewModel
-        {
-            Today = todayPlan,
-            Tomorrow = tomoPlan
-        });
+        return View(todayPlan);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

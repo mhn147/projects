@@ -1,5 +1,4 @@
-﻿// TODO: review
-function setupThemeToggle() {
+﻿function setupThemeToggle() {
     const toggle = document.getElementById('theme-toggle');
     const sunIcon = document.getElementById('icon-sun');
     const moonIcon = document.getElementById('icon-moon');
