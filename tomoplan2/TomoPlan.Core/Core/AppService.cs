@@ -13,17 +13,9 @@ public class AppService
         _repo = repo;
     }
 
-    public async Task<DailyPlan[]> GetPlan(Guid userId, DateOnly date)
+    public async Task<DailyPlan> GetOrCreatePlan(Guid userId, DateTimeOffset date)
     {
-        var x = await GetOrCreatePlan(userId, date);
-        var tomo = await GetOrCreatePlan(userId, date.AddDays(1));
-        var yesterday = await GetOrCreatePlan(userId, date.AddDays(-1));
-
-        return [yesterday, x, tomo];
-    }
-
-    private async Task<DailyPlan> GetOrCreatePlan(Guid userId, DateOnly date)
-    {
+        // todo: fix comparison make it only for the date
         var x = await _repo.GetPlan(userId, date);
 
         if (x == null)

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using TomoPlan.Core.Core;
 using TomoPlan.Core.Data;
 using TomoPlan.Web.Models;
+using TomoPlan.Web.ViewModels;
 
 namespace TomoPlan.Web.Controllers;
 
@@ -18,21 +19,19 @@ public class HomeController : Controller
         _appService = appService;
     }
 
-    public async Task<IActionResult> Index(DateOnly? planDate)
+    public async Task<IActionResult> Index(DateTimeOffset? date)
     {
-        // if date provided use its plan
-        var target = planDate ?? DateOnly.FromDateTime(DateTime.UtcNow);
+        date = date ?? DateTimeOffset.UtcNow;
 
-        // else create today's, yesterday, and tomorrow plans using UTC to avoid timezone differences and send them all back
         var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var x = await _appService.GetPlan(userId, target);
-
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
+        var todayPlan = await _appService.GetOrCreatePlan(userId, date.Value);
+        var tomoPlan = await _appService.GetOrCreatePlan(userId, date.Value.AddDays(1));
+        
+        return View(new DailyPlanViewModel
+        {
+            Today = todayPlan,
+            Tomorrow = tomoPlan
+        });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

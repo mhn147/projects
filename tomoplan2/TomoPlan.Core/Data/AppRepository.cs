@@ -91,7 +91,7 @@ public class AppRepository
         await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task<DailyPlan?> GetPlan(Guid userId, DateOnly date)
+    public async Task<DailyPlan?> GetPlan(Guid userId, DateTimeOffset date)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -102,12 +102,12 @@ public class AppRepository
             """
                 SELECT *
                 FROM daily_plans
-                WHERE user_id = @UserId AND date = @Date
+                WHERE user_id = @UserId AND Date(date) = @Date
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@UserId", userId.ToString());
-        cmd.Parameters.AddWithValue("@Date", date);
+        cmd.Parameters.AddWithValue("@Date", DateOnly.FromDateTime(date.DateTime));
 
         using var reader = await cmd.ExecuteReaderAsync();
 
@@ -117,14 +117,14 @@ public class AppRepository
             {
                 Id = reader.GetGuid(reader.GetOrdinal("id")),
                 UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                Date = reader.GetDateOnly(reader.GetOrdinal("date")),
+                Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
             };
         }
 
         return null;
     }
 
-    public async Task<DailyPlan> AddPlan(Guid userId, DateOnly date)
+    public async Task<DailyPlan> AddPlan(Guid userId, DateTimeOffset date)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -162,9 +162,9 @@ public class AppRepository
         {
             return new DailyPlan
             {
-                Id = reader.GetGuid(reader.GetOrdinal("Id")),
-                UserId = reader.GetGuid(reader.GetOrdinal("UserId")),
-                Date = reader.GetDateOnly(reader.GetOrdinal("Date")),
+                Id = reader.GetGuid(reader.GetOrdinal("id")),
+                UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
+                Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
             };
         }
 
