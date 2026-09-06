@@ -1,8 +1,12 @@
+function renderGrid2() {
+    
+}
+
 function renderGrid() {
     const HOUR_HEIGHT = 56;
     const START_HOUR = 0;
     const END_HOUR = 24;
-    const BASE_DATE = new Date(2026, 5, 28);
+    const BASE_DATE = document.planDate;
 
     // In-memory store keyed by day offset from BASE_DATE (0 = "tomorrow" in this demo).
     // Replace this object with calls to your real backend (e.g. fetch('/api/tasks?date=...'))

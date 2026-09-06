@@ -24,9 +24,9 @@ public class HomeController : Controller
         date ??= DateTimeOffset.UtcNow;
 
         var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-        var todayPlan = await _appService.GetOrCreatePlan(userId, date.Value);
+        var plan = await _appService.GetOrCreatePlan(userId, date.Value);
         
-        return View(todayPlan);
+        return View(plan);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

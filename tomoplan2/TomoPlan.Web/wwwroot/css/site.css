@@ -20,6 +20,9 @@
     --danger: #e2554f;
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+    --navbar-height: 50px;
+    --footer-height: 50px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -50,8 +53,13 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin-bottom: 60px;
+@media (min-width: 576px) {
+    .navbar {
+        height: var(--navbar-height);
+    }
+}
+footer {
+    height: var(--footer-height);
 }
 
 .day-label-group {
@@ -86,7 +94,6 @@ body {
 .icon-btn:hover {
     background: var(--bg-surface-2);
 }
-
 
 .grid-wrapper {
     position: relative;

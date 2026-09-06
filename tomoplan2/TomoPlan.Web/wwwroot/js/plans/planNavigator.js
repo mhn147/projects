@@ -1,12 +1,22 @@
 const planDate = document.planDate;
 
 function shouldDisplayTomorrow() {
+    const now = new Date();
+    const sameDay =
+        now.getUTCFullYear() === planDate.getUTCFullYear() &&
+        now.getUTCMonth() === planDate.getUTCMonth() &&
+        now.getUTCDate() === planDate.getUTCDate();
+    
+    if (!sameDay) {
+        return false;
+    }
+    
     return (new Date()).getHours() >= 22;
 }
 
 function goToTomorrow() {
     const dateObj = new Date(planDate);
-    dateObj.setUTCDate(y.getUTCDate() + 1)
+    dateObj.setUTCDate(dateObj.getUTCDate() + 1)
     window.location.href = `/?date=${dateObj.toISOString()}`;
 }
 

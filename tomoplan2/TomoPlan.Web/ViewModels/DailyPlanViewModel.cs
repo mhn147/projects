@@ -4,6 +4,6 @@ namespace TomoPlan.Web.ViewModels;
 
 public class DailyPlanViewModel
 {
-    public required DailyPlan Today { get; set; }
-    public required DailyPlan Tomorrow { get; set; }
+    public required DailyPlan Plan { get; set; }
+    public bool SkipTomorrowRedirect { get; set; }
 }
