@@ -79,7 +79,7 @@ function renderGrid() {
     //     document.getElementById('dateLabel').textContent = getDateLabel(offset);
     // }
 
-    function renderGrid() {
+    function renderGrid() { 
         const grid = document.getElementById('grid');
         const totalHours = END_HOUR - START_HOUR;
         grid.style.height = (totalHours * HOUR_HEIGHT) + 'px';

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/TomoPlan.Web.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="d-flex flex-column vh-100">
+    <div id="app">
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
                 <div class="container">
@@ -37,23 +37,16 @@
                         </li>
                     </ul> *@
                     </div>
-                    <partial name="_ThemeToggle" />
+                    <partial name="_ThemeToggle" /> 
                     <partial name="_LoginPartial" />
                 </div>
             </nav>
         </header>
-        <div class="flex-grow-1 container">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-        @* <footer class="border-top text-muted p-2"> *@
-        @*     <div class="container"> *@
-        @*         &copy; 2026 - TomoPlan - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-        @*     </div> *@
-        @* </footer> *@
+        <main role="main">
+            @RenderBody()
+        </main>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>  
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
