@@ -1,14 +1,35 @@
-function renderGrid2() {
+function getHoursFormatted(locale = undefined) {
+    const hours = [];
+    const formatter = new Intl.DateTimeFormat(locale, {
+        hour: 'numeric',
+        hour12: undefined, // Let the locale decide
+    });
+
+    for (let i = 0; i <= 24; i++) {
+        const date = new Date();
+        date.setHours(i, 0, 0, 0);
+        const formatted = formatter.format(date);
+        hours.push(formatted);
+    }
     
+    return hours;
+}
+
+function renderHours() {
+    const hoursFormatted = getHoursFormatted();
+    const hourElements = document.getElementsByClassName("hour-label");
+    for (let i = 0; i < hourElements.length; i++) {
+        hourElements[i].innerHTML = hoursFormatted[i];
+    }
 }
 
 function renderGrid() {
-    const HOUR_HEIGHT = 56;
-    const START_HOUR = 0;
-    const END_HOUR = 24;
-    const BASE_DATE = document.planDate;
+    const hourHeight = 56;
+    const startHour = 0;
+    const endHour = 24;
+    const baseDate = document.planDate;
 
-    // In-memory store keyed by day offset from BASE_DATE (0 = "tomorrow" in this demo).
+    // In-memory store keyed by day offset from baseDate (0 = "tomorrow" in this demo).
     // Replace this object with calls to your real backend (e.g. fetch('/api/tasks?date=...'))
     let tasksByOffset = {
         0: [
@@ -54,21 +75,11 @@ function renderGrid() {
     }
 
     function dateForOffset(off) {
-        const d = new Date(BASE_DATE);
+        const d = new Date(baseDate);
         d.setDate(d.getDate() + off);
         return d;
     }
-
-    function getDateLabel(off) {
-        return dateForOffset(off).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-
-    function getDayName(off) {
-        if (off === 0) return 'Tomorrow';
-        if (off === -1) return 'Today';
-        return dateForOffset(off).toLocaleDateString('en-US', { weekday: 'long' });
-    }
-
+    
     function currentTasks() {
         if (!tasksByOffset[offset]) tasksByOffset[offset] = [];
         return tasksByOffset[offset];
@@ -81,20 +92,24 @@ function renderGrid() {
 
     function renderGrid() { 
         const grid = document.getElementById('grid');
-        const totalHours = END_HOUR - START_HOUR;
-        grid.style.height = (totalHours * HOUR_HEIGHT) + 'px';
+        const totalHours = endHour - startHour;
+        grid.style.height = (totalHours * hourHeight) + 'px';
         grid.innerHTML = '';
 
-        for (let h = START_HOUR; h <= END_HOUR; h++) {
+        for (let h = startHour; h <= endHour; h++) {
             const row = document.createElement('div');
             row.className = 'hour-row';
-            row.style.top = ((h - START_HOUR) * HOUR_HEIGHT) + 'px';
+            row.style.top = ((h - startHour) * hourHeight) + 'px';
             grid.appendChild(row);
 
             const label = document.createElement('div');
             label.className = 'hour-label';
             label.textContent = fmtHourLabel(h);
-            label.style.top = ((h - START_HOUR) * HOUR_HEIGHT - 7) + 'px';
+            if (h === 0) {
+                label.style.top = '0';
+            } else {
+                label.style.top = ((h - startHour) * hourHeight - 7) + 'px';
+            }
             grid.appendChild(label);
         }
 
@@ -115,11 +130,11 @@ function renderGrid() {
         tasks.forEach(function (task) {
             const startH = timeToHours(task.start);
             const endH = timeToHours(task.end);
-            const top = (startH - START_HOUR) * HOUR_HEIGHT;
+            const top = (startH - startHour) * hourHeight;
             // endH 15.25
             // start 14
             // 1.25 * 50px -2
-            const height = Math.max((endH - startH) * HOUR_HEIGHT - 2, 22);
+            const height = Math.max((endH - startH) * hourHeight - 2, 22);
 
             const block = document.createElement('div');
             block.className = 'task-block ' + task.category;
@@ -139,10 +154,6 @@ function renderGrid() {
                 timeEl.textContent = fmtDisplayTime(task.start) + ' to ' + fmtDisplayTime(task.end);
                 block.appendChild(timeEl);
             }
-
-            block.addEventListener('click', function () {
-                //openModal(task);
-            });
 
             grid.appendChild(block);
         });
@@ -246,4 +257,4 @@ function renderGrid() {
     render();
 };
 
-export { renderGrid };
+export { renderGrid, renderHours };

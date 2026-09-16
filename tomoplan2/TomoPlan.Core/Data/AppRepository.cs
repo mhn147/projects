@@ -100,9 +100,12 @@ public class AppRepository
 
         var query =
             """
-                SELECT *
-                FROM daily_plans
-                WHERE user_id = @UserId AND Date(date) = @Date
+                SELECT p.id as plan_id, p.user_id as user_id, p.date as date, p.created_at, p.updated_at, p.is_complete,
+                        t.id as task_id, t.body as task_body, t.start_time as task_start_time, t.end_time as task_end_time,
+                        t.created_at as task_created_at, t.updated_at as task_updated_at, t.is_complete as task_is_complete
+                FROM daily_plans p
+                INNER JOIN daily_tasks t ON p.id = t.daily_plan_id 
+                WHERE p.user_id = @UserId AND Date(p.date) = @Date
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
@@ -111,19 +114,89 @@ public class AppRepository
 
         using var reader = await cmd.ExecuteReaderAsync();
 
-        if (await reader.ReadAsync())
+        DailyPlan? plan = null;
+        
+        while (await reader.ReadAsync())
         {
-            return new DailyPlan
+            if (plan == null)
             {
-                Id = reader.GetGuid(reader.GetOrdinal("id")),
-                UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
-            };
+                plan = new DailyPlan
+                {
+                    Id = reader.GetGuid(reader.GetOrdinal("plan_id")), 
+                    UserId = reader.GetGuid(reader.GetOrdinal("user_id")), 
+                    Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
+                };
+            }
+
+            var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
+            if (taskId != null)
+            {
+                plan.Tasks.Add(new DailyTask 
+                {
+                    Id = taskId,
+                    StartTime = reader.GetTimeOnly(reader.GetOrdinal("task_start_time")),
+                    EndTime = reader.GetTimeOnly(reader.GetOrdinal("task_end_time")),
+                    Body = reader.GetString(reader.GetOrdinal("task_body"))
+                });
+            }
         }
 
-        return null;
+        return plan;
     }
 
+    public async Task<DailyPlan?> GetPlan(Guid planId)
+    {
+        if (_dbConnection.State != ConnectionState.Open)
+        {
+            await _dbConnection.OpenAsync();
+        }
+
+        var query =
+            """
+                SELECT 
+                    p.id as plan_id, p.user_id as user_id, p.date as date, p.created_at, p.updated_at, p.is_complete,
+                    t.id as task_id, t.body as task_body, t.start_time as task_start_time, t.end_time as task_end_time,
+                      t.created_at as task_created_at, t.updated_at as task_updated_at, t.is_complete as task_is_complete
+                FROM daily_plans p
+                INNER JOIN daily_tasks t ON p.id = t.daily_plan_id 
+                WHERE p.id = @Id
+            """;
+
+        await using var cmd = new MySqlCommand(query, _dbConnection);
+        cmd.Parameters.AddWithValue("@Id", planId.ToString());
+
+        await using var reader = await cmd.ExecuteReaderAsync();
+
+        DailyPlan? plan = null;
+        
+        while (await reader.ReadAsync())
+        {
+            if (plan == null)
+            {
+                plan = new DailyPlan
+                {
+                    Id = reader.GetGuid(reader.GetOrdinal("plan_id")), 
+                    UserId = reader.GetGuid(reader.GetOrdinal("user_id")), 
+                    Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
+                };
+            }
+
+            var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
+            if (taskId != null)
+            {
+                plan.Tasks.Add(new DailyTask
+                {
+                    Id = taskId,
+                    StartTime = reader.GetTimeOnly(reader.GetOrdinal("task_start_time")),
+                    EndTime = reader.GetTimeOnly(reader.GetOrdinal("task_end_time")),
+                    Body = reader.GetString(reader.GetOrdinal("task_body"))
+                });
+            }
+        }
+
+        return plan;
+    }
+    
     public async Task<DailyPlan> AddPlan(Guid userId, DateTimeOffset date)
     {
         if (_dbConnection.State != ConnectionState.Open)
@@ -169,5 +242,30 @@ public class AppRepository
         }
 
         throw new Exception("foo");
+    }
+
+    public async Task AddTask(Guid planId, TimeOnly startTime, TimeOnly endTime, string body)
+    {
+        if (_dbConnection.State != ConnectionState.Open)
+        {
+            await _dbConnection.OpenAsync();
+        }
+
+        var id = Guid.NewGuid().ToString();
+
+        var query =
+            """
+                INSERT INTO daily_tasks (id, daily_plan_id, start_time, end_time, body)
+                VALUES (@Id, @PlanId, @StartTime, @EndTime, @Body)
+            """;
+
+        await using var cmd = new MySqlCommand(query, _dbConnection); 
+        cmd.Parameters.AddWithValue("@Id", id);
+        cmd.Parameters.AddWithValue("@PlanId", planId.ToString());
+        cmd.Parameters.AddWithValue("@StartTime", startTime.ToString("O"));
+        cmd.Parameters.AddWithValue("@EndTime", endTime.ToString("O"));
+        cmd.Parameters.AddWithValue("@Body", body);
+
+        await cmd.ExecuteNonQueryAsync();
     }
 }

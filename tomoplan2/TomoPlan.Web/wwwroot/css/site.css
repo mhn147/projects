@@ -51,10 +51,6 @@ main {
     border-right: 1px solid var(--border-color);
 }
 
-.day-label-group {
-    text-align: center;
-}
-
 .day-label {
     font-size: 18px;
     font-weight: 600;
@@ -86,10 +82,16 @@ main {
 
 .hour-row {
     position: absolute;
-    left: 0;
+    left: 56px;
     right: 0;
-    height: 0;
+    height: 56px;
     border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+}
+
+.hour-row.last {
+    border-bottom: 1px solid var(--border-color);
 }
 
 .hour-label {
@@ -102,15 +104,6 @@ main {
     background: var(--bg-surface);
     padding: 0 6px;
     text-align: right;
-}
-
-.spine {
-    position: absolute;
-    left: 56px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border-color);
 }
 
 .task-block {

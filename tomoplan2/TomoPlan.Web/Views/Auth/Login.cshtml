@@ -5,32 +5,35 @@
 }
 @model RegisterViewModel
 
-<h2>Log in</h2>
+<div class="container">
+    
+    <h2>Log in</h2>
 
-<form asp-controller="auth" asp-action="login" asp-method="post">
-    <div class="mb-3">
-        <label for="loginEmailInput" class="form-label">Email address</label>
-        <input asp-for="Email" type="email" class="form-control" id="loginEmailInput" aria-describedby="emailHelp">
-        <div id="loginEmailInput" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label for="loginPasswordInput" class="form-label">Password</label>
-        <input asp-for="Password" type="password" class="form-control" id="loginPasswordInput">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <form asp-controller="auth" asp-action="login" asp-method="post">
+        <div class="mb-3">
+            <label for="loginEmailInput" class="form-label">Email address</label>
+            <input asp-for="Email" type="email" class="form-control" id="loginEmailInput" aria-describedby="emailHelp">
+            <div id="loginEmailInput" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="loginPasswordInput" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="loginPasswordInput">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-<h2 class="mt-5">Sign up</h2>
+    <h2 class="mt-5">Sign up</h2>
 
-<form asp-controller="auth" asp-action="signup" asp-method="post">
-    <div class="mb-3">
-        <label for="registerEmailInput" class="form-label">Email address</label>
-        <input asp-for="Email" type="email" class="form-control" id="registerEmailInput" aria-describedby="emailHelp">
-        <div id="registerEmailInput" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label for="registerPasswordInput" class="form-label">Password</label>
-        <input asp-for="Password" type="password" class="form-control" id="registerPasswordInput">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <form asp-controller="auth" asp-action="signup" asp-method="post">
+        <div class="mb-3">
+            <label for="registerEmailInput" class="form-label">Email address</label>
+            <input asp-for="Email" type="email" class="form-control" id="registerEmailInput" aria-describedby="emailHelp">
+            <div id="registerEmailInput" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="registerPasswordInput" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="registerPasswordInput">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
