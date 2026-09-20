@@ -15,7 +15,7 @@ public class AppService
 
     public async Task<DailyPlan> GetOrCreatePlan(Guid userId, DateTimeOffset date)
     {
-        var plan = await _repo.GetPlan(userId, date) ?? await _repo.AddPlan(userId, date);
+        var plan = await _repo.GetPlan(userId, date) ?? await _repo.AddPlan(userId, date); 
         return plan;
     }
 

@@ -104,13 +104,13 @@ public class AppRepository
                         t.id as task_id, t.body as task_body, t.start_time as task_start_time, t.end_time as task_end_time,
                         t.created_at as task_created_at, t.updated_at as task_updated_at, t.is_complete as task_is_complete
                 FROM daily_plans p
-                INNER JOIN daily_tasks t ON p.id = t.daily_plan_id 
+                LEFT JOIN daily_tasks t ON p.id = t.daily_plan_id 
                 WHERE p.user_id = @UserId AND Date(p.date) = @Date
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@UserId", userId.ToString());
-        cmd.Parameters.AddWithValue("@Date", DateOnly.FromDateTime(date.DateTime));
+        cmd.Parameters.AddWithValue("@Date", DateOnly.FromDateTime(date.DateTime).ToString("O"));
 
         using var reader = await cmd.ExecuteReaderAsync();
 
@@ -128,9 +128,9 @@ public class AppRepository
                 };
             }
 
-            var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
-            if (taskId != null)
+            if (!reader.IsDBNull(reader.GetOrdinal("task_id")))
             {
+                var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
                 plan.Tasks.Add(new DailyTask 
                 {
                     Id = taskId,
@@ -158,7 +158,7 @@ public class AppRepository
                     t.id as task_id, t.body as task_body, t.start_time as task_start_time, t.end_time as task_end_time,
                       t.created_at as task_created_at, t.updated_at as task_updated_at, t.is_complete as task_is_complete
                 FROM daily_plans p
-                INNER JOIN daily_tasks t ON p.id = t.daily_plan_id 
+                LEFT JOIN daily_tasks t ON p.id = t.daily_plan_id 
                 WHERE p.id = @Id
             """;
 
@@ -181,9 +181,9 @@ public class AppRepository
                 };
             }
 
-            var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
-            if (taskId != null)
+            if (!reader.IsDBNull(reader.GetOrdinal("task_id")))
             {
+                var taskId = reader.GetGuid(reader.GetOrdinal("task_id")); 
                 plan.Tasks.Add(new DailyTask
                 {
                     Id = taskId,
