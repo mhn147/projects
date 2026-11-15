@@ -31,16 +31,17 @@
             @for (var i = 0; i <= 24; i++)
             {
                 <div class="hour-row @(i == 24 ? "last": "")" style="top: @(i * 56)px"></div> 
-                <div class="hour-label" style="top: @(i == 0 ? 0 : (i * 56) - 7)px">JS</div> 
+                <div class="hour-label" style="top: @(i == 0 ? 0 : (i * 56) - 7)px"></div> 
             }
             @foreach(var task in @Model.Tasks)
             {
                 <div
-                    class="task-block personal"
+                    class="task-block personal text-start p-2"
                     style="top: @(task.StartTime.Hour * 56)px; height: @(Math.Max(((task.EndTime.ToTimeSpan().TotalMinutes - task.StartTime.ToTimeSpan().TotalMinutes) / 60) * 56 - 2, 22))px"
                     role="button"
                     tabindex="0">
-                    @task.Body
+                    <p class="m-0 fw-semibold" style="font-size: 0.9rem;">@task.Title</p>
+                    <p class="m-0 fw-light" style="font-size: 0.9rem;">@task.StartTime.ToShortTimeString() - @task.EndTime.ToShortTimeString()</p>
                 </div>
             }
         </div>
@@ -58,13 +59,32 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="startTimeInput" class="form-label">Start</label>
-                                <input required name="StartTime" type="time" class="form-control" id="startTimeInput">
+                                <input required name="StartTime" type="time" step="900" class="form-control" id="startTimeInput">
                             </div>
                             <div class="col-md-6">
                                 <label for="endTimeInput" class="form-label">End</label>
-                                <input required name="EndTime" type="time" class="form-control" id="endTimeInput">
+                                <input required name="EndTime" type="time" step="900" class="form-control" id="endTimeInput">
                             </div>
-                            <div class="col mt-2">
+                            <div class="col-md-9 mt-3">
+                                <label for="titleInput" class="form-label">Title</label>
+                                <input required name="Title" type="text" class="form-control" id="titleInput">
+                            </div>
+                            <input type="hidden" name="Color" id="colorInput" value="#FF6B6B">
+                            <div class="col-md-3 mt-3">
+                                <label for="colorDropdown" class="form-label">Color</label>
+                                <div id="colorDropdown" class="dropdown">
+                                    <button id="colorDropdownBtn" class="btn btn-outline-light dropdown-toggle" type="button"  
+                                            data-bs-toggle="dropdown" aria-expanded="false"> 
+                                        Color
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col mt-3">
                                 <label for="taskText" class="form-label">Task</label>
                                 <textarea required name="Body" class="form-control" id="taskText" rows="3"></textarea>
                             </div>

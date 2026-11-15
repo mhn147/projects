@@ -101,7 +101,7 @@ public class AppRepository
         var query =
             """
                 SELECT p.id as plan_id, p.user_id as user_id, p.date as date, p.created_at, p.updated_at, p.is_complete,
-                        t.id as task_id, t.body as task_body, t.start_time as task_start_time, t.end_time as task_end_time,
+                        t.id as task_id, t.body as task_body, t.title as task_title, t.start_time as task_start_time, t.end_time as task_end_time,
                         t.created_at as task_created_at, t.updated_at as task_updated_at, t.is_complete as task_is_complete
                 FROM daily_plans p
                 LEFT JOIN daily_tasks t ON p.id = t.daily_plan_id 
@@ -136,7 +136,8 @@ public class AppRepository
                     Id = taskId,
                     StartTime = reader.GetTimeOnly(reader.GetOrdinal("task_start_time")),
                     EndTime = reader.GetTimeOnly(reader.GetOrdinal("task_end_time")),
-                    Body = reader.GetString(reader.GetOrdinal("task_body"))
+                    Body = reader.GetString(reader.GetOrdinal("task_body")),
+                    Title = reader.GetString(reader.GetOrdinal("task_title"))
                 });
             }
         }
@@ -155,7 +156,7 @@ public class AppRepository
             """
                 SELECT 
                     p.id as plan_id, p.user_id as user_id, p.date as date, p.created_at, p.updated_at, p.is_complete,
-                    t.id as task_id, t.body as task_body, t.start_time as task_start_time, t.end_time as task_end_time,
+                    t.id as task_id, t.body as task_body, t.title as task_title, t.start_time as task_start_time, t.end_time as task_end_time,
                       t.created_at as task_created_at, t.updated_at as task_updated_at, t.is_complete as task_is_complete
                 FROM daily_plans p
                 LEFT JOIN daily_tasks t ON p.id = t.daily_plan_id 
@@ -189,7 +190,8 @@ public class AppRepository
                     Id = taskId,
                     StartTime = reader.GetTimeOnly(reader.GetOrdinal("task_start_time")),
                     EndTime = reader.GetTimeOnly(reader.GetOrdinal("task_end_time")),
-                    Body = reader.GetString(reader.GetOrdinal("task_body"))
+                    Body = reader.GetString(reader.GetOrdinal("task_body")),
+                    Title = reader.GetString(reader.GetOrdinal("task_title"))
                 });
             }
         }
@@ -244,7 +246,7 @@ public class AppRepository
         throw new Exception("foo");
     }
 
-    public async Task AddTask(Guid planId, TimeOnly startTime, TimeOnly endTime, string body)
+    public async Task AddTask(Guid planId, TimeOnly startTime, TimeOnly endTime, string body, string title)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -255,8 +257,8 @@ public class AppRepository
 
         var query =
             """
-                INSERT INTO daily_tasks (id, daily_plan_id, start_time, end_time, body)
-                VALUES (@Id, @PlanId, @StartTime, @EndTime, @Body)
+                INSERT INTO daily_tasks (id, daily_plan_id, start_time, end_time, body, title)
+                VALUES (@Id, @PlanId, @StartTime, @EndTime, @Body, @Title)
             """;
 
         await using var cmd = new MySqlCommand(query, _dbConnection); 
@@ -265,6 +267,7 @@ public class AppRepository
         cmd.Parameters.AddWithValue("@StartTime", startTime.ToString("O"));
         cmd.Parameters.AddWithValue("@EndTime", endTime.ToString("O"));
         cmd.Parameters.AddWithValue("@Body", body);
+        cmd.Parameters.AddWithValue("@Title", title);
 
         await cmd.ExecuteNonQueryAsync();
     }

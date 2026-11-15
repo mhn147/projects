@@ -19,9 +19,9 @@ public class AppService
         return plan;
     }
 
-    public async Task<DailyPlan> AddTask(Guid planId, TimeOnly startTime, TimeOnly endTime, string body)
+    public async Task<DailyPlan> AddTask(Guid planId, TimeOnly startTime, TimeOnly endTime, string body, string title)
     {
-        await _repo.AddTask(planId, startTime, endTime, body);
+        await _repo.AddTask(planId, startTime, endTime, body, title);
 
         var x = await _repo.GetPlan(planId);
 

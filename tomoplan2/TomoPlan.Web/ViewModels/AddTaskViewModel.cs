@@ -6,4 +6,5 @@ public class AddTaskViewModel
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
     public string Body { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
 }

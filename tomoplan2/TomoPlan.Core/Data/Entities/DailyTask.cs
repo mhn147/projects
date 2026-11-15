@@ -4,6 +4,7 @@ public class DailyTask
 {
     public Guid Id { get; set; }
     public Guid DailyPlanId { get; set; }
+    public string Title { get; set; } = string.Empty;
     public string Body { get; set; } = string.Empty;
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }

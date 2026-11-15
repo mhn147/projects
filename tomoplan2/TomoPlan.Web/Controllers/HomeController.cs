@@ -34,7 +34,7 @@ public class HomeController : Controller
     public async Task<IActionResult> AddTask(AddTaskViewModel model)
     {
         // the date portion is in UTC
-        var plan = await _appService.AddTask(model.PlanId, model.StartTime, model.EndTime, model.Body);
+        var plan = await _appService.AddTask(model.PlanId, model.StartTime, model.EndTime, model.Body, model.Title);
         
         return View("Index", plan);
     }
