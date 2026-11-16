@@ -19,13 +19,13 @@ public class HomeController : Controller
         _appService = appService;
     }
 
-    public async Task<IActionResult> Index(DateTimeOffset? date)
+    public async Task<IActionResult> Index(DateTime? date)
     {
-        date ??= DateTimeOffset.UtcNow;
+        date ??= DateTime.UtcNow.Date;
 
         var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
         var plan = await _appService.GetOrCreatePlan(userId, date.Value);
-        
+
         return View(plan);
     }
 
@@ -35,8 +35,8 @@ public class HomeController : Controller
     {
         // the date portion is in UTC
         var plan = await _appService.AddTask(model.PlanId, model.StartTime, model.EndTime, model.Body, model.Title);
-        
-        return View("Index", plan);
+
+        return RedirectToAction("Index", new { date = plan.Date });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

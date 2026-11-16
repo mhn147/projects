@@ -4,7 +4,7 @@ public class DailyPlan
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
-    public DateTimeOffset Date { get; set; }
+    public DateOnly Date { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
     public DateTimeOffset UpdatedAt { get; set; }
     public bool IsComplete { get; set; }

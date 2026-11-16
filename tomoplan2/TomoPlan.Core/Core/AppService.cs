@@ -10,12 +10,12 @@ public class AppService
 
     public AppService(AppRepository repo)
     {
-        _repo = repo;  
+        _repo = repo;
     }
 
-    public async Task<DailyPlan> GetOrCreatePlan(Guid userId, DateTimeOffset date)
+    public async Task<DailyPlan> GetOrCreatePlan(Guid userId, DateTime date)
     {
-        var plan = await _repo.GetPlan(userId, date) ?? await _repo.AddPlan(userId, date); 
+        var plan = await _repo.GetPlan(userId, date) ?? await _repo.AddPlan(userId, date);
         return plan;
     }
 

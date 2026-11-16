@@ -71,7 +71,8 @@ public class AppRepository
 
     public async Task AddUser(Guid id, string email, string passwordHash)
     {
-        if (_dbConnection.State != ConnectionState.Open) {
+        if (_dbConnection.State != ConnectionState.Open)
+        {
             await _dbConnection.OpenAsync();
         }
 
@@ -91,7 +92,7 @@ public class AppRepository
         await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task<DailyPlan?> GetPlan(Guid userId, DateTimeOffset date)
+    public async Task<DailyPlan?> GetPlan(Guid userId, DateTime date)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -110,28 +111,28 @@ public class AppRepository
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@UserId", userId.ToString());
-        cmd.Parameters.AddWithValue("@Date", DateOnly.FromDateTime(date.DateTime).ToString("O"));
+        cmd.Parameters.AddWithValue("@Date", DateOnly.FromDateTime(date).ToString("O"));
 
         using var reader = await cmd.ExecuteReaderAsync();
 
         DailyPlan? plan = null;
-        
+
         while (await reader.ReadAsync())
         {
             if (plan == null)
             {
                 plan = new DailyPlan
                 {
-                    Id = reader.GetGuid(reader.GetOrdinal("plan_id")), 
-                    UserId = reader.GetGuid(reader.GetOrdinal("user_id")), 
-                    Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
+                    Id = reader.GetGuid(reader.GetOrdinal("plan_id")),
+                    UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
+                    Date = reader.GetDateOnly(reader.GetOrdinal("date")),
                 };
             }
 
             if (!reader.IsDBNull(reader.GetOrdinal("task_id")))
             {
                 var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
-                plan.Tasks.Add(new DailyTask 
+                plan.Tasks.Add(new DailyTask
                 {
                     Id = taskId,
                     StartTime = reader.GetTimeOnly(reader.GetOrdinal("task_start_time")),
@@ -169,22 +170,22 @@ public class AppRepository
         await using var reader = await cmd.ExecuteReaderAsync();
 
         DailyPlan? plan = null;
-        
+
         while (await reader.ReadAsync())
         {
             if (plan == null)
             {
                 plan = new DailyPlan
                 {
-                    Id = reader.GetGuid(reader.GetOrdinal("plan_id")), 
-                    UserId = reader.GetGuid(reader.GetOrdinal("user_id")), 
-                    Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
+                    Id = reader.GetGuid(reader.GetOrdinal("plan_id")),
+                    UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
+                    Date = reader.GetDateOnly(reader.GetOrdinal("date")),
                 };
             }
 
             if (!reader.IsDBNull(reader.GetOrdinal("task_id")))
             {
-                var taskId = reader.GetGuid(reader.GetOrdinal("task_id")); 
+                var taskId = reader.GetGuid(reader.GetOrdinal("task_id"));
                 plan.Tasks.Add(new DailyTask
                 {
                     Id = taskId,
@@ -198,8 +199,8 @@ public class AppRepository
 
         return plan;
     }
-    
-    public async Task<DailyPlan> AddPlan(Guid userId, DateTimeOffset date)
+
+    public async Task<DailyPlan> AddPlan(Guid userId, DateTime date)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -217,7 +218,7 @@ public class AppRepository
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@Id", id);
         cmd.Parameters.AddWithValue("@UserId", userId.ToString());
-        cmd.Parameters.AddWithValue("@Date", date.ToString("O"));
+        cmd.Parameters.AddWithValue("@Date", MySqlDbType.Date).Value = date;
 
         await cmd.ExecuteNonQueryAsync();
 
@@ -239,7 +240,7 @@ public class AppRepository
             {
                 Id = reader.GetGuid(reader.GetOrdinal("id")),
                 UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
+                Date = reader.GetDateOnly(reader.GetOrdinal("date")),
             };
         }
 
@@ -261,7 +262,7 @@ public class AppRepository
                 VALUES (@Id, @PlanId, @StartTime, @EndTime, @Body, @Title)
             """;
 
-        await using var cmd = new MySqlCommand(query, _dbConnection); 
+        await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@Id", id);
         cmd.Parameters.AddWithValue("@PlanId", planId.ToString());
         cmd.Parameters.AddWithValue("@StartTime", startTime.ToString("O"));
