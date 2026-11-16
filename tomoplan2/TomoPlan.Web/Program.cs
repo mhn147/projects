@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
 using MySqlConnector;
 using TomoPlan.Core.Core;
 using TomoPlan.Core.Data;
@@ -42,6 +43,11 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AppService>();
 
 var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 if (!app.Environment.IsDevelopment())
 {
