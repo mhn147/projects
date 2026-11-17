@@ -55,11 +55,6 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           printf '%s\n' "$TOMOPLAN_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
-      - name: Debug known_hosts
-        run: |
-          wc -l ~/.ssh/known_hosts
-          ssh-keygen -lf ~/.ssh/known_hosts
-
       - name: Upload files
         env:
           TOMOPLAN_SSH_HOST: ${{ secrets.TOMOPLAN_SSH_HOST }}
