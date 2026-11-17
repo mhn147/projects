@@ -30,11 +30,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Debug
-        run: |
-          pwd
-          ls -la
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -59,6 +54,11 @@ jobs:
           printf '%s\n' "$TOMOPLAN_SSH_PK" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           printf '%s\n' "$TOMOPLAN_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Debug known_hosts
+        run: |
+          wc -l ~/.ssh/known_hosts
+          ssh-keygen -lf ~/.ssh/known_hosts
 
       - name: Upload files
         env:
