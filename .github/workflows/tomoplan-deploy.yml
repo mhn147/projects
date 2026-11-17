@@ -27,14 +27,10 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Debug - where am I
+      - name: Debug
         run: |
-          echo "PWD: $PWD"
-          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-          echo "--- repo root ---"
+          pwd
           ls -la
-          echo "--- project files ---"
-          find . -name "*.csproj" -o -name "*.sln" | grep -v node_modules
 
       - name: Checkout
         uses: actions/checkout@v4
