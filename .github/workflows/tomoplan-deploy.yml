@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "tomoplan2/**"
+      - ".github/workflows/tomoplan-deploy.yml"
   workflow_dispatch:
 
 # Never run two deploys at once, and don't kill one mid-way.
