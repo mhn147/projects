@@ -16,7 +16,7 @@ concurrency:
 env:
   DOTNET_VERSION: "10.0.x"
   # Path to your .csproj (or .sln) if it is not in the repo root
-  PROJECT: "./TomoPlan.Web/TomoPlan.Web.csproj"
+  PROJECT: "./tomoplan2/TomoPlan.Web/TomoPlan.Web.csproj"
   TOMOPLAN_SERVER_USER: ${{ vars.TOMOPLAN_SERVER_USER }}
   APP_DIR: /var/www/plan
   SERVICE: plan
