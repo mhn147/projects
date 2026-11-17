@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Never run two deploys at once, and don't kill one mid-way
+# Never run two deploys at once, and don't kill one mid-way.
 concurrency:
   group: deploy-production
   cancel-in-progress: false
