@@ -1,8 +1,10 @@
-name: Deploy
+name: Deploy TomoPlan
 
 on:
   push:
     branches: [main]
+    paths:
+      - "tomoplan2/**"
   workflow_dispatch:
 
 # Never run two deploys at once, and don't kill one mid-way.
