@@ -27,7 +27,7 @@ function updateCursor() {
   const el = document.getElementById("grid-cursor");
   const now = new Date();
   const minutes = now.getHours() * 60 + now.getMinutes();
-  const hourHeight = 60;
+  const hourHeight = 56;
   el.style.top = (minutes / 60) * hourHeight + "px";
 }
 
