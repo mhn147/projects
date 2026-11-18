@@ -37,10 +37,9 @@ function getDateLabel() {
 
 function initPlanNavigator() {
   const dateLabel = document.getElementById("dateLabel");
-  dateLabel.innerText = new Intl.DateTimeFormat(undefined, {
+  dateLabel.innerText = planDate.toLocaleDateString(undefined, {
     dateStyle: "medium",
-    timeZone: "UTC",
-  }).format(planDate);
+  });
   dateLabel.style.display = "block";
 
   const dayLabel = document.getElementById("dayLabel");

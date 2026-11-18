@@ -90,7 +90,7 @@
 
     @section Scripts {
         <script>
-            const [y, m, d] = '@Html.Raw(@Model.Date.ToString("O"))'.split("-").map(Number);
+            const [y, m, d] = '@Html.Raw(@Model.Date.ToString("yyyy-MM-dd"))'.split("-").map(Number);
             document.planDate = new Date(Date.UTC(y, m - 1, d));
         </script>
         <script type="module" src="~/js/plans/index.js" asp-append-version="true"></script>
