@@ -40,14 +40,14 @@ function initPlanNavigator() {
   nextDayBtn.addEventListener("click", function () {
     const y = new Date(planDate);
     y.setUTCDate(y.getUTCDate() + 1);
-    window.location.href = `/?date=${y.toISOString().slice(0, 10)}`;
+    window.location.href = `/?date=${y.toISOString()}`;
   });
 
   const prevDayBtn = document.getElementById("prevDay");
   prevDayBtn.addEventListener("click", function () {
     const y = new Date(planDate);
     y.setUTCDate(y.getUTCDate() - 1);
-    window.location.href = `/?date=${y.toISOString().slice(0, 10)}`;
+    window.location.href = `/?date=${y.toISOString()}`;
   });
 }
 
