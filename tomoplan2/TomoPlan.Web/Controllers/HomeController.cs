@@ -19,9 +19,9 @@ public class HomeController : Controller
         _appService = appService;
     }
 
-    public async Task<IActionResult> Index(DateTime? date)
+    public async Task<IActionResult> Index(DateTimeOffset? date)
     {
-        date ??= DateTime.UtcNow.Date;
+        date ??= DateTimeOffset.UtcNow;
 
         var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
         var plan = await _appService.GetOrCreatePlan(userId, date.Value);

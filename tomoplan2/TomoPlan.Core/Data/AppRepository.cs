@@ -92,7 +92,7 @@ public class AppRepository
         await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task<DailyPlan?> GetPlan(Guid userId, DateTime date)
+    public async Task<DailyPlan?> GetPlan(Guid userId, DateTimeOffset date)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -111,7 +111,7 @@ public class AppRepository
 
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@UserId", userId.ToString());
-        cmd.Parameters.AddWithValue("@Date", DateOnly.FromDateTime(date).ToString("O"));
+        cmd.Parameters.AddWithValue("@Date", date.ToString("O"));
 
         using var reader = await cmd.ExecuteReaderAsync();
 
@@ -125,7 +125,7 @@ public class AppRepository
                 {
                     Id = reader.GetGuid(reader.GetOrdinal("plan_id")),
                     UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                    Date = reader.GetDateOnly(reader.GetOrdinal("date")),
+                    Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
                 };
             }
 
@@ -179,7 +179,7 @@ public class AppRepository
                 {
                     Id = reader.GetGuid(reader.GetOrdinal("plan_id")),
                     UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                    Date = reader.GetDateOnly(reader.GetOrdinal("date")),
+                    Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
                 };
             }
 
@@ -200,7 +200,7 @@ public class AppRepository
         return plan;
     }
 
-    public async Task<DailyPlan> AddPlan(Guid userId, DateTime date)
+    public async Task<DailyPlan> AddPlan(Guid userId, DateTimeOffset date)
     {
         if (_dbConnection.State != ConnectionState.Open)
         {
@@ -218,7 +218,7 @@ public class AppRepository
         await using var cmd = new MySqlCommand(query, _dbConnection);
         cmd.Parameters.AddWithValue("@Id", id);
         cmd.Parameters.AddWithValue("@UserId", userId.ToString());
-        cmd.Parameters.AddWithValue("@Date", MySqlDbType.Date).Value = date;
+        cmd.Parameters.AddWithValue("@Date", MySqlDbType.DateTime).Value = date;
 
         await cmd.ExecuteNonQueryAsync();
 
@@ -240,7 +240,7 @@ public class AppRepository
             {
                 Id = reader.GetGuid(reader.GetOrdinal("id")),
                 UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                Date = reader.GetDateOnly(reader.GetOrdinal("date")),
+                Date = reader.GetDateTimeOffset(reader.GetOrdinal("date")),
             };
         }
 

@@ -1,13 +1,6 @@
-const planDate = document.planDate;
-
 function shouldDisplayTomorrow() {
-  const now = new Date();
-  const sameDay =
-    now.getUTCFullYear() === planDate.getUTCFullYear() &&
-    now.getUTCMonth() === planDate.getUTCMonth() &&
-    now.getUTCDate() === planDate.getUTCDate();
-
-  if (!sameDay) {
+  const params = new URLSearchParams(location.search);
+  if (!params.has("date")) {
     return false;
   }
 
@@ -21,18 +14,15 @@ function goToTomorrow() {
 }
 
 function getDateLabel() {
-  const now = new Date();
-
-  const todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-  const diffDays = Math.round((planDate.getTime() - todayUtc) / 86_400_000);
+  const startOfDay = (x) =>
+    new Date(x.getFullYear(), x.getMonth(), x.getDate());
+  const diffDays = Math.round(
+    (startOfDay(planDate) - startOfDay(new Date())) / 86_400_000,
+  );
 
   if (diffDays === 0) return "Today";
   if (diffDays === 1) return "Tomorrow";
-
-  return planDate.toLocaleDateString(undefined, {
-    weekday: "long",
-    timeZone: "UTC",
-  });
+  return planDate.toLocaleDateString(undefined, { weekday: "long" });
 }
 
 function initPlanNavigator() {
